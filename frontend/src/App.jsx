@@ -6,6 +6,7 @@ import Layout from './components/Layout.jsx'
 import { ScoreProvider } from './contexts/ScoreContext.jsx'
 
 import AddSubjects from './pages/AddSubjects.jsx'
+import SubjectInfo from './pages/SubjectInfo.jsx'
 
 function App() {
 
@@ -30,6 +31,7 @@ Individual scores:
           <Route element={<Layout />}>
               <Route path="/home" element={<Home />} />
               <Route path="/add-subjects" element={<AddSubjects />} />
+              <Route path='/home/:subjectName' element={<SubjectInfo/>}/>
           </Route>
       </Routes>
       </ScoreProvider>
