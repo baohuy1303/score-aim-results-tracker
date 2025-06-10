@@ -42,27 +42,6 @@ function Home(){
             return 'N/A'
     } 
 
-    function makeScores() {
-        let newScore = {
-            math: {
-                hs1: [5, 7],
-                hs2: 8.3,
-                hs3: 7.5
-            },
-            physics: {
-                hs1: [9, 5],
-                hs2: 5.5,
-                hs3: 8.3
-            },
-            english: {
-                hs1: [8, 9],
-                hs2: 10,
-                hs3: 10
-            },
-        }
-        
-        createScore(newScore)
-    }
 
       const handleChange = (e) => {
           setTerm(e.target.value);
@@ -100,7 +79,6 @@ function Home(){
                     })}
                 </div>
             )}
-            <button onClick={makeScores}>Create Score</button>
         </>
     );
 }

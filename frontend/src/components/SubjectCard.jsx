@@ -1,8 +1,10 @@
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
 import {deleteScore} from '../api.js'
+import { useNavigate } from "react-router-dom"
 
     function SubjectCard({ subject, homeCheck }) {
-        const { score, term, getGPA , userid, setEdit} = useScoreContext();
+        const navigate = useNavigate();
+        const { score, term, getGPA , userid, setEdit, unCamelCase} = useScoreContext();
 
         const handleClick = async () =>{
             setEdit(true)
@@ -19,16 +21,15 @@ import {deleteScore} from '../api.js'
                 setEdit(false)
             }
         }
-        
-        function unCamelCase(text) {
-            const result = text.replace(/([A-Z])/g, ' $1');
-            return result.charAt(0).toUpperCase() + result.slice(1);
+
+        function openSubjectPage(){
+            navigate(`/home/${subject}`)
         }
 
         return (
             <>
                 {homeCheck ? (
-                    <div>
+                    <div onClick={openSubjectPage} style={{cursor: 'pointer'}}>
                         <p>{unCamelCase(subject)}: {getGPA(score, subject)}</p>
                     </div>
                 ) : (

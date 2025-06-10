@@ -4,11 +4,17 @@ import { getScores, createScore } from '../api.js';
 const ScoreContext = createContext();
 
 export function ScoreProvider({ userID, children }) {
+    const storedTerm = localStorage.getItem('selectedTerm') || "termOne";
     const [score, setScore] = useState({});
     const [loading, setLoading] = useState(true);
-    const [term, setTerm] = useState('termOne')
+    const [term, setTerm] = useState(storedTerm)
     const [editSubject, setEdit] = useState(false)
     const userid = userID
+
+    function unCamelCase(text) {
+        const result = text.replace(/([A-Z])/g, ' $1');
+        return result.charAt(0).toUpperCase() + result.slice(1);
+    }
 
      function getGPA(score, subject) {
          if (score) {
@@ -54,18 +60,34 @@ export function ScoreProvider({ userID, children }) {
          } else return 'N/A';
      }
 
+     useEffect(() => {
+         localStorage.setItem('selectedTerm', term);
+     }, [term]);
+
     useEffect(() => {
         async function getAllScores() {
-            let data = await getScores(userID);
-            if (data) {
-                setScore(data[term]);
-                setLoading(false);
+            setLoading(true);
+
+            try {
+                let data = await getScores(userID);
+                if (data) {
+                    setScore(data[term]);
+                } else {
+                    setScore(null);
+                }
+            } catch (error) {
+                console.error('Failed to fetch scores:', err);
+                setScore(null);
+            } finally {
+                setLoading(false); // Always stop loading
             }
         }
+
         getAllScores();
+
     }, [userID, term, editSubject]);
     return (
-        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit}}>
+        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, unCamelCase}}>
             {children}
         </ScoreContext.Provider>
     );
