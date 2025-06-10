@@ -1,0 +1,34 @@
+----SERVER----
+connect.js and server.js: connect backend to mongodb and open server
+    |
+    |
+scoureRoutes.js:
+    - Overall Score [/scores/:userID/]
+        + GET: all scores
+        + POST: add subjects (not needed)
+        + PUT: edit subject list
+        + DELETE: delete subject
+    - Subject Score [/scores/:userID/:term/:subject]
+        + GET: all multipler score of subject
+        + POST: add score (not needed)
+        + PUT: edit scores
+        + DELETE: delete score
+    |
+    |
+api.js: make calls to the routes and export function for frontend to use
+    |
+    |
+-----FRONT END----
+ScoreContext.jsx:
+    + useEffect getAllScores and pass to client object
+    + export Average GPA function
+
+Home.jsx:
+    + useState term -> switch context term
+    + SubjectCard: pass subject name, and subject scores to display average GPA
+    + get overall GPA by running context GPA func
+    
+AddSubjects.jsx:
+    +
+
+
