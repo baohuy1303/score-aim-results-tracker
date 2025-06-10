@@ -1,0 +1,73 @@
+[JSON Structure]:
+    termOne: [
+        math: {
+                hs1: [],
+                hs2: (double),
+                hs3: (double)
+            },
+        physics: {
+                hs1: [],
+                hs2: (double),
+                hs3: (double)
+            },
+        english: {
+                hs1: [],
+                hs2: (double),
+                hs3: (double)
+            },
+        (other subjects with the same format as the 3 above...)
+        ],
+    termTwo: [(same as term 1)]
+
+
+[Login]: Authentication
+    |
+    |
+    
+[Home]: Load [data] from user, if none display none. If already has data, display as cards for each subject, only display average GPA
+          |
+          |
+    |----- ------|
+
+[Term 1] or [Term 2]:
+    + [Subject card]: Click to view full stats for the subject (component)
+    + [Average GPA text]
+    + [Navbar]
+
+[Navbar]:
+    + [Home page button]
+    + [Edit Subjects]
+    + [Aim Overall GPA Calculator]
+    + [Log out]
+
+[Edit Subjects]: Add or remove subjects that the student wants to score track
+    + [Navbar]
+    + [Pick term 1 or term 2]: Radio button useState
+    + [List added subjects]: (component)  
+        - ul li of all subjects that got from the JSON, if none display add subjects
+        - [Delete button] --> Warning pop up, confirm to delete this subject
+    + [Dropdown Form]: Select 1 subject from dropdown and pick add subject
+    + [Textarea Form]: Subject not found on list, text and add the subject by hand.
+
+[Subject Card (on new page)]: 
+    + [Navbar]
+    + [Aim Subject GPA Calculator]
+    + [Average GPA Text]
+    + [List HS1, 2, 3]: (component)
+        - Header text (HS1, HS2, HS3)
+        - Display all scores for each multiplier: Click to edit score
+        - [Add button]: Click and text to add score
+
+[Aim Overall GPA]:
+    + [Desired GPA Text Field]
+    + [Select all subjects that want to change]: Dropdown and pick
+    + [Calculate Button]
+    ---> Average GPA needed for the selected subjects
+
+[Aim Subject GPA]:
+    + [Desired GPA Text Field]
+    + [Select multipler that want to change]: Dropdown and pick
+    + [Calculate Button]
+    ---> Score needed for GPA
+
+
