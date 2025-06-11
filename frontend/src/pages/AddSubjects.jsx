@@ -5,20 +5,14 @@ import SubjectCard from "../components/SubjectCard";
 import {addSubject } from "../api";
 
 function AddSubjects(){
-    const {score, loading, term, setTerm, userid, setEdit} = useScoreContext()
+    const {score, loading, term, setTerm, userid, setEdit, camelCase} = useScoreContext()
     const [newSubject, setNewSubject] = useState('')
 
     const handleChange = (e) => {
           setTerm(e.target.value);
       };
 
-      function camelCase(str) {
-          // converting all characters to lowercase
-          let ans = str.toLowerCase();
-
-          // Returning string to camelcase
-          return ans.split(' ').reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
-      }
+      
 
       const NewSubjectAdd = async (e) => {
           e.preventDefault();

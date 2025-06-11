@@ -15,7 +15,13 @@ export function ScoreProvider({ userID, children }) {
         const result = text.replace(/([A-Z])/g, ' $1');
         return result.charAt(0).toUpperCase() + result.slice(1);
     }
+    function camelCase(str) {
+          // converting all characters to lowercase
+          let ans = str.toLowerCase();
 
+          // Returning string to camelcase
+          return ans.split(' ').reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
+      }
      function getGPA(score, subject) {
          if (score) {
             let currentSubject = score?.[subject];
@@ -95,7 +101,7 @@ export function ScoreProvider({ userID, children }) {
 
     }, [userID, term, editSubject]);
     return (
-        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, unCamelCase}}>
+        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase}}>
             {children}
         </ScoreContext.Provider>
     );

@@ -110,7 +110,7 @@ if(index == 'newScore'){
                 <p>Loading...</p>
             ) : (
                 <>
-                    <h1>New Score</h1>
+                    <h1>New {unCamelCase(subject)}'s {multiplier} Score</h1>
                     <form onSubmit={NewScoreAdd}>
                         <input
                             value={newScore}
@@ -124,7 +124,6 @@ if(index == 'newScore'){
                         />
                         <button disabled={newScore.trim() === ''}>Add</button>
                     </form>
-                    <p>{multiplier}</p>
                 </>
             )}
         </>
@@ -137,6 +136,7 @@ if(index == 'newScore'){
             ) : (
                 <>
                     <h1>{score[subject][multiplier][index]}</h1>
+                    <h2>{unCamelCase(subject)} {multiplier}'s {[`score number ${Number(index) + 1}`]}</h2>
                     <form onSubmit={EditScore}>
                         <input
                             value={newScore}
@@ -153,9 +153,6 @@ if(index == 'newScore'){
                         </button>
                     </form>
                     <button onClick={DeleteScore}>Delete this score</button>
-                    <p>
-                        {multiplier} {index}
-                    </p>
                 </>
             )}
         </>
