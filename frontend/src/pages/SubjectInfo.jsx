@@ -18,6 +18,10 @@ function SubjectInfo() {
         navigate(`/home/${subject}/${multiplier}/${index}`)
       }
 
+      function NewScore(multiplier){
+        navigate(`/home/${subject}/${multiplier}/newScore`)
+      }
+
     return<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       <h2 style={{marginRight: '1vw'}}>{name.toUpperCase()}</h2>
       {loading ? (
@@ -26,7 +30,7 @@ function SubjectInfo() {
             <p style={{cursor: 'pointer', marginRight: '1vw'}} key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
           )))
         }
-      <button>Add Score</button>
+      <button onClick={() => NewScore(name)}>Add Score</button>
     </div>
   }
 

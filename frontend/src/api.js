@@ -18,7 +18,7 @@ export async function createScore(newScore) {
     return res
 }
 
-export async function addScore(userID, term, subject) {
+export async function addSubject(userID, term, subject) {
     try{
         const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/post`);
         return res
@@ -29,9 +29,41 @@ export async function addScore(userID, term, subject) {
     }
 }
 
-export async function deleteScore(userID, term, subject) {
+export async function deleteSubject(userID, term, subject) {
     try{
         const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/del`);
+        return res
+    }
+    catch (error){
+        console.error('Failed to fetch scores:', error?.response?.data || error.message);
+        return null;
+    }
+}
+
+export async function addScore(userID, term, subject, multiplier, newScore) {
+    try{
+        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${newScore}/post`);
+        return res
+    }
+    catch (error){
+        console.error('Failed to fetch scores:', error?.response?.data || error.message);
+        return null;
+    }
+}
+export async function editScore(userID, term, subject, multiplier, index, newScore) {
+    try{
+        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${index}/${newScore}/edit`);
+        return res
+    }
+    catch (error){
+        console.error('Failed to fetch scores:', error?.response?.data || error.message);
+        return null;
+    }
+}
+
+export async function deleteScore(userID, term, subject, multiplier, index) {
+    try{
+        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${index}/del`);
         return res
     }
     catch (error){
