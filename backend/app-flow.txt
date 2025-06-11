@@ -2,18 +2,18 @@
     termOne: [
         math: {
                 hs1: [],
-                hs2: (double),
-                hs3: (double)
+                hs2: [],
+                hs3: []
             },
         physics: {
                 hs1: [],
-                hs2: (double),
-                hs3: (double)
+                hs2: [],
+                hs3: []
             },
         english: {
                 hs1: [],
-                hs2: (double),
-                hs3: (double)
+                hs2: [],
+                hs3: []
             },
         (other subjects with the same format as the 3 above...)
         ],

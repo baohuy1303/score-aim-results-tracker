@@ -1,23 +1,49 @@
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 function SubjectInfo() {
   const { score, loading, unCamelCase } = useScoreContext();
   const subject = useParams().subjectName
+  const navigate = useNavigate()
 
   const hs1 = score[subject]?.hs1 || [];
-  const hs2 = score[subject]?.hs2 || null;
-  const hs3 = score[subject]?.hs3 || null;
+  const hs2 = score[subject]?.hs2 || [];
+  const hs3 = score[subject]?.hs3 || [];
+
+  function MultiplierSec({name}){
+      const thisMulti = score[subject]?.[name] || [];
+
+      function EachScoreClick(multiplier, index){
+        navigate(`/home/${subject}/${multiplier}/${index}`)
+      }
+
+    return<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <h2 style={{marginRight: '1vw'}}>{name.toUpperCase()}</h2>
+      {loading ? (
+                <p>Loading...</p>
+            ) : (thisMulti.map((score, index) => (
+            <p style={{cursor: 'pointer', marginRight: '1vw'}} key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
+          )))
+        }
+      <button>Add Score</button>
+    </div>
+  }
+
 
   return (
     <>
       <h1>{unCamelCase(subject)}</h1>
 
       <div>
-        <h2>HS1</h2>
          {loading ? (
                 <p>Loading...</p>
-            ) : (hs1.map((score, index) => (<p key={index}>{score}</p>)))
+            ) : <div>
+                    {Object.entries(score[subject]).map(([multi]) => {
+                        return <MultiplierSec key={multi} name={multi}/>
+                    })}
+                </div>
+            /* (score[subject].map((name, index) => (<MultiplierSec name={name} key={index}/>))) */
         }
         </div>
     </>

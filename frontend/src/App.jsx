@@ -7,6 +7,7 @@ import { ScoreProvider } from './contexts/ScoreContext.jsx'
 
 import AddSubjects from './pages/AddSubjects.jsx'
 import SubjectInfo from './pages/SubjectInfo.jsx'
+import AddScoreLog from './pages/AddScoreLog.jsx'
 
 function App() {
 
@@ -21,7 +22,7 @@ Individual scores:
   Scores needed button: see what score is needed for a gpa
 */
 
-  const userId = "68431e86529b6b4abc0048ee";
+  const userId = "68492a2adf9ad6d4a6313e70";
   const term = "";
 
   return (
@@ -32,6 +33,7 @@ Individual scores:
               <Route path="/home" element={<Home />} />
               <Route path="/add-subjects" element={<AddSubjects />} />
               <Route path='/home/:subjectName' element={<SubjectInfo/>}/>
+              <Route path='/home/:subject/:multiplier/:index' element={<AddScoreLog/>}/>
           </Route>
       </Routes>
       </ScoreProvider>
