@@ -29,13 +29,21 @@ export function ScoreProvider({ userID, children }) {
                 total += averageHS1
                 count += currentSubject.hs1.length
             }
-            if(typeof currentSubject.hs2 === 'number'){
-                total += currentSubject.hs2 * 2
-                count += 2
+            if(Array.isArray(currentSubject.hs2)){
+                let averageHS2 = 0;
+                for (let index = 0; index < currentSubject.hs2.length; index++) {
+                 averageHS2 += currentSubject.hs2[index];
+                }
+                total += averageHS2 * 2
+                count += currentSubject.hs2.length * 2
             }
-            if(typeof currentSubject.hs3 === 'number'){
-                total += currentSubject.hs3 * 3
-                count += 3
+            if(Array.isArray(currentSubject.hs3)){
+                let averageHS3 = 0;
+                for (let index = 0; index < currentSubject.hs3.length; index++) {
+                 averageHS3 += currentSubject.hs3[index];
+                }
+                total += averageHS3 * 3
+                count += currentSubject.hs3.length * 3
             }
 
             if(count > 0){
