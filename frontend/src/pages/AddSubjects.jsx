@@ -2,7 +2,7 @@ import { useScoreContext } from "../contexts/ScoreContext"
 import {useState, useEffect} from 'react'
 import { useLocation } from "react-router-dom";
 import SubjectCard from "../components/SubjectCard";
-import { addScore } from "../api";
+import {addSubject } from "../api";
 
 function AddSubjects(){
     const {score, loading, term, setTerm, userid, setEdit} = useScoreContext()
@@ -27,7 +27,7 @@ function AddSubjects(){
               if (camelCase(newSubject) in score) {
                   return alert('Already Exists');
               } else {
-                  const res = await addScore(
+                  const res = await addSubject(
                       userid,
                       term,
                       camelCase(newSubject)

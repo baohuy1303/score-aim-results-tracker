@@ -1,5 +1,5 @@
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
-import {deleteScore} from '../api.js'
+import {deleteSubject} from '../api.js'
 import { useNavigate } from "react-router-dom"
 
     function SubjectCard({ subject, homeCheck }) {
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
         const handleClick = async () =>{
             setEdit(true)
             try{
-                const res = await deleteScore(userid, term, subject)
+                const res = await deleteSubject(userid, term, subject)
                 if(res){
                     console.log('Deleted successfully')
                 }else{
