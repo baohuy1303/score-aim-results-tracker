@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addScore, deleteScore, editScore } from '../api.js';
 
-function AddScoreLog(){
+function AddScoreLog(subject, multiplier, index){
     const { userid, term,score, loading, unCamelCase, setEdit } = useScoreContext();
-    const {subject, multiplier, index} = useParams()
+/*     const {subject, multiplier, index} = useParams() */
     const [newScore, setNewScore] = useState('')
     const navigate = useNavigate()
     
@@ -103,13 +103,15 @@ function AddScoreLog(){
               }
           };
 
-if(index == 'newScore'){
+console.log('ok')
+
+if(index === 'newScore'){
     return (
-        <>
+        <div>
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <>
+                <div>
                     <h1>New {unCamelCase(subject)}'s {multiplier} Score</h1>
                     <form onSubmit={NewScoreAdd}>
                         <input
@@ -124,11 +126,11 @@ if(index == 'newScore'){
                         />
                         <button disabled={newScore.trim() === ''}>Add</button>
                     </form>
-                </>
+                </div>
             )}
-        </>
+        </div>
     );
-}else{
+}/* else{
     return (
         <>
             {loading ? (
@@ -158,7 +160,7 @@ if(index == 'newScore'){
         </>
     );
 }
-
+ */
 }
 
 export default AddScoreLog
