@@ -5,7 +5,7 @@ import SubjectCard from '../components/SubjectCard.jsx';
 
 function Home(){
 
-    const {score, loading, term, setTerm, getGPA} = useScoreContext()
+    const {score, loading, getGPA} = useScoreContext()
 
 /*     const [score, setScore] = useState({});
     const [loading, setLoading] = useState(true);
@@ -43,39 +43,15 @@ function Home(){
     } 
 
 
-      const handleChange = (e) => {
-          setTerm(e.target.value);
-      };
-
     return (
         <>
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        value="termOne"
-                        checked={term === 'termOne'}
-                        onChange={handleChange}
-                    />
-                    Term 1
-                </label>
-                <label style={{ marginLeft: '1rem' }}>
-                    <input
-                        type="radio"
-                        value="termTwo"
-                        checked={term === 'termTwo'}
-                        onChange={handleChange}
-                    />
-                    Term 2
-                </label>
-            </div>
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='flex flex-col justify-center items-center min-h-[85vh] max-h-screen text-center'>
+                <div className='flex flex-col justify-center items-center min-h-[80vh] max-h-screen text-center'>
                     <div>
-                    <h1 className='text-[5vw] font-bold mb-0 leading-18'>{averageGPA()}</h1>
-                    <h1 className='text-[2vw] font-medium'>AVERAGE GPA</h1>
+                    <h1 className='text-[5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100'>{averageGPA()}</h1>
+                    <h1 className='text-[2vw] font-medium mt-5'>AVERAGE GPA</h1>
                     </div>
                     <div className='flex flex-wrap justify-center gap-4 max-h-[60vh] overflow-y-auto'>
                     {Object.entries(score).map(([subject]) => {

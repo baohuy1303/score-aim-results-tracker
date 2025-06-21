@@ -1,14 +1,49 @@
 @import "tailwindcss";
 
-:root{
-  --bg-color: #ffe3bb;
+:root {
+  --bg-color: hsl(35, 100%, 89%);
   --orange: #ffa673;
   --red: #c51717;
   --green-select: #03a6a1;
   --black: #232b2b;
   --grade-green: #3ac517;
   --grade-yellow: #d1e52c;
+}
 
+.bg-bgColor        { background-color: var(--bg-color); }
+.bg-orange         { background-color: var(--orange); }
+.bg-red            { background-color: var(--red); }
+.bg-greenSelect    { background-color: var(--green-select); }
+.bg-black          { background-color: var(--black); }
+.bg-gradeGreen     { background-color: var(--grade-green); }
+.bg-gradeYellow    { background-color: var(--grade-yellow); }
+
+.text-bgColor      { color: var(--bg-color); }
+.text-orange       { color: var(--orange); }
+.text-red          { color: var(--red); }
+.text-greenSelect  { color: var(--green-select); }
+.text-black        { color: var(--black); }
+.text-gradeGreen   { color: var(--grade-green); }
+.text-gradeYellow  { color: var(--grade-yellow); }
+
+.border-bgColor      { border-color: var(--bg-color); }
+.border-orange       { border-color: var(--orange); }
+.border-red          { border-color: var(--red); }
+.border-greenSelect  { border-color: var(--green-select); }
+.border-black        { border-color: var(--black); }
+.border-gradeGreen   { border-color: var(--grade-green); }
+.border-gradeYellow  { border-color: var(--grade-yellow); }
+
+.accent-bgColor      { accent-color: var(--bg-color); }
+.accent-orange       { accent-color: var(--orange); }
+.accent-red          { accent-color: var(--red); }
+.accent-greenSelect  { accent-color: var(--green-select); }
+.accent-black        { accent-color: var(--black); }
+.accent-gradeGreen   { accent-color: var(--grade-green); }
+.accent-gradeYellow  { accent-color: var(--grade-yellow); }
+
+.peer:checked ~ .peer-checked-bg-greenSelect {
+  background-color: var(--green-select);
 }
 
 body{
