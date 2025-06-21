@@ -48,12 +48,13 @@ function Home(){
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='flex flex-col justify-center items-center min-h-[80vh] max-h-screen text-center'>
+                <div className='flex flex-col justify-center items-center max-h-[100%] text-center'>
                     <div>
-                    <h1 className='text-[5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100'>{averageGPA()}</h1>
-                    <h1 className='text-[2vw] font-medium mt-5'>AVERAGE GPA</h1>
+                    <h1 className='text-[5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100 mt-[10vh]'>{averageGPA()}</h1>
+                    <h1 className='text-[2vw] font-black mt-5 mb-5'>AVERAGE GPA</h1>
                     </div>
-                    <div className='flex flex-wrap justify-center gap-4 max-h-[60vh] overflow-y-auto'>
+
+                    <div className='flex flex-wrap justify-center gap-10 max-w-[80vw] mb-[10vh]'>
                     {Object.entries(score).map(([subject]) => {
                         return <SubjectCard key={subject} subject={subject} homeCheck={true}/>
                     })}

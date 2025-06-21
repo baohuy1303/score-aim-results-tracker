@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: hsl(35, 100%, 89%);
+  --bg-color: #ffe8c7;
   --orange: #ffa673;
   --red: #c51717;
   --green-select: #03a6a1;
@@ -41,6 +41,24 @@
 .accent-black        { accent-color: var(--black); }
 .accent-gradeGreen   { accent-color: var(--grade-green); }
 .accent-gradeYellow  { accent-color: var(--grade-yellow); }
+
+.hover\:bg-sidebar:hover {
+  background-color: hsl(129, 100%, 89%)
+}
+
+.hover\:border-sidebar:hover {
+  border-color: rgb(255, 237, 224)
+}
+
+.hover\:border-navbar:hover {
+  border-color: var(--orange);
+}
+
+.hover\:bg-subject:hover {
+  background-color: var(--color-amber-200);
+}
+
+
 
 .peer:checked ~ .peer-checked-bg-greenSelect {
   background-color: var(--green-select);
