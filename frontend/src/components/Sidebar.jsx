@@ -11,6 +11,8 @@ import {
 
 function SideBar() {
     const { term, setTerm } = useScoreContext();
+        const navigate = useNavigate()
+        const location = useLocation();
 
     const handleChange = (e) => {
         setTerm(e.target.value);
@@ -58,7 +60,14 @@ function SideBar() {
                         </div>
                     </label>
 
-                    <div className=" flex items-center justify-center size-[3vw] rounded-full border-4 border-black bg-bgColor shadow-orange-800 shadow-xl/30 hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer">
+                    <div
+                        className={` flex items-center justify-center size-[3vw] rounded-full border-4 
+                        border-black shadow-orange-800 shadow-xl/30 hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer
+                        ${location.pathname === '/add-subjects' ? 'bg-greenSelect' : 'bg-bgColor'}`}
+                        onClick={() => {
+                            navigate('/add-subjects');
+                        }}
+                    >
                         <FontAwesomeIcon
                             icon={faPen}
                             className="text-black text-2xl"

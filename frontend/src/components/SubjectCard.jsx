@@ -1,9 +1,12 @@
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
 import {deleteSubject} from '../api.js'
 import { useNavigate } from "react-router-dom"
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
     function SubjectCard({ subject, homeCheck }) {
         const navigate = useNavigate();
+
         const { score, term, getGPA , userid, setEdit, unCamelCase} = useScoreContext();
 
         const handleClick = async () =>{
@@ -39,9 +42,10 @@ import { useNavigate } from "react-router-dom"
 
                     </div>
                 ) : (
-                    <div>
-                        <p>{unCamelCase(subject)} <button onClick={handleClick}>Delete Subject</button></p>
-                        <hr />
+                    <div className='flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw] 
+                    shadow-lg/30 shadow-orange-400 border-4 border-amber-50'>
+                        <p className='text-lg'> {unCamelCase(subject)}</p>
+                        <button className=" text-white hover:text-red-600 cursor-pointer bg-red py-2 px-4 rounded-md shadow-md/10 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out" onClick={handleClick}><FontAwesomeIcon className='text-xl' icon={faTrashCan} /></button>
                     </div>
                 )}
             </>

@@ -52,6 +52,7 @@ function Home(){
                     <div>
                     <h1 className='text-[5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100 mt-[10vh]'>{averageGPA()}</h1>
                     <h1 className='text-[2vw] font-black mt-5 mb-5'>AVERAGE GPA</h1>
+                    
                     </div>
 
                     <div className='flex flex-wrap justify-center gap-10 max-w-[80vw] mb-[10vh]'>

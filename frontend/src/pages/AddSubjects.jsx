@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react'
 import { useLocation } from "react-router-dom";
 import SubjectCard from "../components/SubjectCard";
 import {addSubject } from "../api";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function AddSubjects(){
     const {score, loading, term, setTerm, userid, setEdit, camelCase} = useScoreContext()
@@ -42,43 +44,24 @@ function AddSubjects(){
 
     return (
         <>
-            <h1>Subject List</h1>
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        value="termOne"
-                        checked={term === 'termOne'}
-                        onChange={handleChange}
-                    />
-                    Term 1
-                </label>
-                <label style={{ marginLeft: '1rem' }}>
-                    <input
-                        type="radio"
-                        value="termTwo"
-                        checked={term === 'termTwo'}
-                        onChange={handleChange}
-                    />
-                    Term 2
-                </label>
-            </div>
+        <div className='flex flex-col justify-center items-center max-h-[100%] text-center'>
+            <h1 className='text-[2.5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100 mt-[10vh]' >EDIT SUBJECTS LIST</h1>
 
-            <form onSubmit={NewSubjectAdd}>
-                <input value={newSubject} type="text" placeholder="Add a new subject" onChange={(e) => {setNewSubject(e.target.value)}}/>
-                <button>Add</button>
+            <form onSubmit={NewSubjectAdd} className="my-5">
+                <input className="bg-white py-4 px-6 outline-amber-100 rounded-lg focus:outline-3 focus:outline-amber-200 shadow-md/30 focus:shadow-lg/30 shadow-orange-400 hover:bg-amber-100 hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out mr-8" value={newSubject} type="text" placeholder="Add a new subject" onChange={(e) => {setNewSubject(e.target.value)}}/>
+                <button className="bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg shadow-lg/30 shadow-orange-400 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out"><FontAwesomeIcon icon={faPlus} /></button>
             </form>
             
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div>
-                    <hr />
+                <div className='flex flex-wrap justify-center gap-10 max-w-[80vw] mb-[10vh]'>
                     {Object.entries(score).map(([subject]) => {
                         return <SubjectCard key={subject} subject={subject} homeCheck={false}/>
                     })}
                 </div>
             )}
+            </div>
         </>
     );
 }
