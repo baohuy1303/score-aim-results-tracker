@@ -29,8 +29,14 @@ import { useNavigate } from "react-router-dom"
         return (
             <>
                 {homeCheck ? (
-                    <div onClick={openSubjectPage} style={{cursor: 'pointer'}}>
-                        <p>{unCamelCase(subject)}: {getGPA(score, subject)}</p>
+                    <div onClick={openSubjectPage} className='flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw]
+                    cursor-pointer shadow-lg/30 shadow-orange-400 border-4 border-amber-50  hover:bg-subject hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out'>
+                        <p className='text-lg'>{unCamelCase(subject)}:</p>
+                        <div>
+                            <h1 className='text-2xl'>{getGPA(score, subject)}</h1>
+                            <div className='w-[100%] p-[7%] bg-gradeGreen rounded-xl'></div>
+                        </div>
+
                     </div>
                 ) : (
                     <div>
