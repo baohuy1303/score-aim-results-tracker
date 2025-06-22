@@ -45,7 +45,7 @@ function AddSubjects(){
     return (
         <>
         <div className='flex flex-col justify-center items-center max-h-[100%] text-center'>
-            <h1 className='text-[2.5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100 mt-[10vh]' >EDIT SUBJECTS LIST</h1>
+            <h1 className='text-[2.5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 bg-amber-100 mt-[10vh]' >EDIT SUBJECTS LIST</h1>
 
             <form onSubmit={NewSubjectAdd} className="my-5">
                 <input className="bg-white py-4 px-6 outline-amber-100 rounded-lg focus:outline-3 focus:outline-amber-200 shadow-md/30 focus:shadow-lg/30 shadow-orange-400 hover:bg-amber-100 hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out mr-8" value={newSubject} type="text" placeholder="Add a new subject" onChange={(e) => {setNewSubject(e.target.value)}}/>
