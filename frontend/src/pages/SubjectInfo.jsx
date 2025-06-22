@@ -36,8 +36,8 @@ function SubjectInfo() {
                   <p>Loading...</p>
               ) : (thisMulti.map((score, index) => (
                   <p className='cursor-pointer text-[1.1vw] font-bold border-white
-                  hover:border-4 hover:border-white rounded-sm px-4 py-3 shadow-lg/40 shadow-orange-400 bg-amber-100
-                  hover:bg-amber-200 hover:shadow-lg/50 hover:scale-105 transition duration-200 ease-in-out' key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
+                  rounded-sm px-4 py-3 shadow-lg/40 shadow-orange-400 bg-amber-100
+                  hover:bg-amber-200 hover:shadow-lg/50 hover:scale-110 transition duration-200 ease-in-out' key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
             )))
           }
       </div>
