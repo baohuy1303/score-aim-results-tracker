@@ -49,7 +49,8 @@ function AddSubjects(){
 
             <form onSubmit={NewSubjectAdd} className="my-5">
                 <input className="bg-white py-4 px-6 outline-amber-100 rounded-lg focus:outline-3 focus:outline-amber-200 shadow-md/30 focus:shadow-lg/30 shadow-orange-400 hover:bg-amber-100 hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out mr-8" value={newSubject} type="text" placeholder="Add a new subject" onChange={(e) => {setNewSubject(e.target.value)}}/>
-                <button className="bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg shadow-lg/30 shadow-orange-400 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out"><FontAwesomeIcon icon={faPlus} /></button>
+                <button disabled={newSubject.trim() === ''} className={ newSubject.trim() === '' ? 'bg-gray-500 py-4 px-5 rounded-lg shadow-lg/30 shadow-orange-400 ' : 'cursor-pointer bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg shadow-lg/30 shadow-orange-400 hover:bg-sidebar hover:shadow-lg/35 hover:scale-115 transition duration-200 ease-in-out'}>
+                <FontAwesomeIcon icon={faPlus} /></button>
             </form>
             
             {loading ? (

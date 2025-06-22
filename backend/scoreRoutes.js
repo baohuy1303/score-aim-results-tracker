@@ -46,8 +46,8 @@ scoreRoutes.route('/:userID/:term/:subject/post').put( async (req, res) =>{
             {_id: new ObjectID(userID)}, 
             { $set: { [`${term}.${subject}`]: {
                 "hs1" : [],
-                "hs2": null,
-                "hs3": null
+                "hs2": [],
+                "hs3": []
             } }})
         if (result.matchedCount === 0) {
             return res.status(404).json({ message: 'Score not found' });
