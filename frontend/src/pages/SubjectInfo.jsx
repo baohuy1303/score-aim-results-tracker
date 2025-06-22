@@ -1,5 +1,7 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 function SubjectInfo() {
@@ -22,10 +24,12 @@ function SubjectInfo() {
         navigate(`/home/${subject}/${multiplier}/newScore`)
       }
 
-    return<div className='w-[20vw] h-[20vh] flex flex-row justify-center items-center bg-orange'>
-      <div className='flex flex-row justify-between'>
-        <h2 style={{marginRight: '1vw'}}>{`x${name.replace('hs', '')}`}</h2>
-        <button onClick={() => NewScore(name)}>Add Score</button>
+    return<div className='w-[20vw] h-[40vh] flex flex-col items-center bg-orange rounded-lg
+    shadow-lg/30 shadow-orange-400 border-4 border-amber-50
+    hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out'>
+      <div className='flex flex-row justify-between w-[100%] items-center'>
+        <h2 className='text-[1.5vw] font-black mt-5 ml-6'>{`x${name.replace('hs', '')}`}</h2>
+        <button className="cursor-pointer mt-5 mr-5 bg-white py-3 px-4 border-amber-50 border-4 rounded-[100%] shadow-lg/30 shadow-orange-400 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out" onClick={() => NewScore(name)}><FontAwesomeIcon icon={faPlus} /></button>
       </div>
       
       <div>
