@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 
 function SubjectInfo() {
-  const { score, loading, unCamelCase } = useScoreContext();
+  const { score, loading, unCamelCase, getGPA } = useScoreContext();
   const subject = useParams().subjectName
   const navigate = useNavigate()
 
@@ -22,27 +22,37 @@ function SubjectInfo() {
         navigate(`/home/${subject}/${multiplier}/newScore`)
       }
 
-    return<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <h2 style={{marginRight: '1vw'}}>{name.toUpperCase()}</h2>
-      {loading ? (
-                <p>Loading...</p>
-            ) : (thisMulti.map((score, index) => (
-            <p style={{cursor: 'pointer', marginRight: '1vw'}} key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
-          )))
-        }
-      <button onClick={() => NewScore(name)}>Add Score</button>
+    return<div className='w-[20vw] h-[20vh] flex flex-row justify-center items-center bg-orange'>
+      <div className='flex flex-row justify-between'>
+        <h2 style={{marginRight: '1vw'}}>{`x${name.replace('hs', '')}`}</h2>
+        <button onClick={() => NewScore(name)}>Add Score</button>
+      </div>
+      
+      <div>
+        {loading ? (
+                  <p>Loading...</p>
+              ) : (thisMulti.map((score, index) => (
+                  <p style={{cursor: 'pointer', marginRight: '1vw'}} key={index} onClick={() => EachScoreClick(name, index)}>{score}</p>
+            )))
+          }
+      </div>
+
     </div>
   }
 
 
   return (
     <>
-      <h1>{unCamelCase(subject)}</h1>
+    <div className='flex flex-col justify-center items-center mt-[10vh]'>
+            <h1 className='text-[2vw] font-black'>{unCamelCase(subject).toUpperCase()}</h1>
+            <h1 className='text-[5vw] font-bold mt-3 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 rounded-r-xl bg-amber-100'>{getGPA(score, subject)}</h1>
+    </div>
+
 
       <div>
          {loading ? (
                 <p>Loading...</p>
-            ) : <div>
+            ) : <div className='flex flex-row justify-center items-center gap-10 mt-10'>
                     {Object.entries(score[subject]).map(([multi]) => {
                         return <MultiplierSec key={multi} name={multi}/>
                     })}
