@@ -32,20 +32,43 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
         return (
             <>
                 {homeCheck ? (
-                    <div onClick={openSubjectPage} className='flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw]
-                    cursor-pointer shadow-lg/30 shadow-orange-400 border-4 border-amber-50  hover:bg-subject hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out'>
-                        <p className='text-lg'>{unCamelCase(subject)}:</p>
+                    <div
+                        onClick={openSubjectPage}
+                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw]
+                    cursor-pointer shadow-lg/30 shadow-orange-400 border-4 border-amber-50  hover:bg-subject hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out"
+                    >
+                        <p className="text-lg">{unCamelCase(subject)}:</p>
                         <div>
-                            <h1 className='text-2xl'>{getGPA(score, subject)}</h1>
-                            <div className='w-[100%] p-[7%] bg-gradeGreen rounded-xl'></div>
+                            <h1 className="text-2xl">
+                                {getGPA(score, subject)}
+                            </h1>
+                            <div
+                                className={`w-[100%] p-[7%] rounded-xl
+                                ${
+                                    getGPA(score, subject) >= 8
+                                        ? 'bg-gradeGreen'
+                                        : getGPA(score, subject) >= 6
+                                        ? 'bg-gradeYellow'
+                                        : 'bg-red'
+                                }`}
+                            ></div>
                         </div>
-
                     </div>
                 ) : (
-                    <div className='flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw] 
-                    shadow-lg/30 shadow-orange-400 border-4 border-amber-50'>
-                        <p className='text-lg'> {unCamelCase(subject)}</p>
-                        <button className=" text-white hover:text-red-600 cursor-pointer bg-red py-2 px-4 rounded-md shadow-md/10 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out" onClick={handleClick}><FontAwesomeIcon className='text-xl' icon={faTrashCan} /></button>
+                    <div
+                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw] 
+                    shadow-lg/30 shadow-orange-400 border-4 border-amber-50"
+                    >
+                        <p className="text-lg"> {unCamelCase(subject)}</p>
+                        <button
+                            className=" text-white hover:text-red-600 cursor-pointer bg-red py-2 px-4 rounded-md shadow-md/10 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out"
+                            onClick={handleClick}
+                        >
+                            <FontAwesomeIcon
+                                className="text-xl"
+                                icon={faTrashCan}
+                            />
+                        </button>
                     </div>
                 )}
             </>
