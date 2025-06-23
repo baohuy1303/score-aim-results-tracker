@@ -10,6 +10,19 @@
   --grade-yellow: #d1e52c;
 }
 
+::-webkit-scrollbar {
+  width: 0.4vw;
+
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+    border-radius: 10%;
+  
+}
+::-webkit-scrollbar-thumb {
+  background-color: #e2e2e2; /* blue-400 */
+}
+
 .bg-bgColor        { background-color: var(--bg-color); }
 .bg-orange         { background-color: var(--orange); }
 .bg-red            { background-color: var(--red); }
