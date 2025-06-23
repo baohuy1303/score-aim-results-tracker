@@ -7,6 +7,10 @@ function ChatBot() {
     const inputRef = useRef()
     const [chatHistory, setChatHistory] = useState([])
 
+    const generateBotRes = () => {
+
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const userMessage = inputRef.current.value.trim()
@@ -17,7 +21,10 @@ function ChatBot() {
         
         setTimeout(() => {
             setChatHistory((history) => [...history, {role: 'model', text: 'Thinking...'}])
+
+            generateBotRes([...chatHistory, {role: 'user', text:userMessage}])
         }, 600);
+
     }
 
     return (
