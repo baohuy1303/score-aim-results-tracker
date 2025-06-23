@@ -1,7 +1,10 @@
 const database = require('./connect');
 const express = require('express');
 const ObjectID = require('mongodb').ObjectId
+require('dotenv').config({path: "./.env"});
+const {GoogleGenAI} = require("@google/genai");
 
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 let scoreRoutes = express.Router()
 
 
@@ -121,6 +124,113 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/del').put( async (
     }
 })
 
+
+
+function formatScoresForGemini(subjects) {
+  const weightMap = { hs1: 1, hs2: 2, hs3: 3 };
+  const labelMap = { hs1: 'x1', hs2: 'x2', hs3: 'x3' };
+  let result = '';
+
+  for (const subject in subjects) {
+    let totalScore = 0;
+    let totalWeight = 0;
+    const sectionData = [];
+
+    for (const hs in subjects[subject]) {
+      const scores = subjects[subject][hs];
+      const weight = weightMap[hs];
+      const sum = scores.reduce((a, b) => a + b, 0);
+      totalScore += sum * weight;
+      totalWeight += scores.length * weight;
+      sectionData.push(`${labelMap[hs]}: [${scores.join(', ')}]`);
+    }
+
+    const average = totalWeight === 0 ? 0 : (totalScore / totalWeight).toFixed(2);
+    result += `${subject} -> ${sectionData.join(' | ')} | weighted average: ${average}\n`;
+  }
+
+  return result.trim();
+}
+
+function formatChatHistory(chatHistory) {
+  return chatHistory.map(
+    ({ role, text }) => `${role === 'user' ? 'Student' : 'Advisor'}: ${role === 'user' ? text : text.data }`
+  ).join('\n');
+}
+
+
+scoreRoutes.route('/chatbot').post(async (req, res) => {
+  const { question, score, history } = req.body; 
+    const grades = formatScoresForGemini(score)
+    const chatHistory = formatChatHistory(history)
+
+    if (!question || typeof question !== 'string') {
+    return res.status(400).json({ message: 'Missing or invalid question in request body' });
+  }
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text: question, // ✅ dynamically sent question
+            },
+          ],
+        },
+      ],
+      config: {
+        thinkingConfig: {
+          thinkingBudget: 0, // optional
+        },
+        systemInstruction: `You are a friendly study advisor chatbot. Keep your response casual, direct, and between 10-300 words. Headers, formulas, or formatting like bold or italic, just plain text and simple outline if possible. Never explain how GPA is calculated.
+Use these scores: ${grades}. It contains all the subjects the student studied in one term — where hs1, hs2, and hs3 represent exams scores weighted as x1 (×1), x2 (×2), and x3 (×3). Only refer to hs1, hs2, hs3 as x1, x2, and x3 in your answer. 
+Give honest, actionable advice like you're chatting with a student. If asked how to improve grades, remember: x3 is hardest to change, then x2, then x1. The user can either fix 1–2 scores per section or add one more score to each. 
+Focus on realistic improvements (starting from x1 if possible) that give the most impact. If helpful, include hypotheticals like: “If you score a 9 in your x1 exam, your average could reach [estimated score].”
+This is our previous chat history ${chatHistory}`,
+      },
+    });
+
+
+    if (!response) {
+      return res.status(404).json({ message: 'No response from Gemini' });
+    }
+
+    res.json( response.text );
+
+  } catch (error) {
+    console.error('❌ Error getting response:', error.message || error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+/*
+scoreRoutes.route('/chatbot').post(async(req, res) => {
+    const question = req.body
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: 'Who are you',
+            config: {
+                thinkingConfig: {
+                    thinkingBudget: 0, // Disables thinking
+                },
+                systemInstruction: "You are a study advisor, take a look at my grades and answer my question",
+            },
+        });
+        if(!response){
+            return res.status(404).json('Cant find res')
+        }
+        res.json(response.text)
+    } catch (error) {
+        console.error('Error getting response: ', error)
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
+*/
 /* 
 //Get specific subject score
 scoreRoutes.route('/scores/:userID/:term/:subject').get( async (req, res) =>{

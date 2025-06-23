@@ -71,3 +71,19 @@ export async function deleteScore(userID, term, subject, multiplier, index) {
         return null;
     }
 }
+
+
+export async function chatBot(question, score, history) {
+    try{
+        const res = await axios.post(`${URL}/scores/chatbot`, {
+            question,
+            score,
+            history
+        });
+        return res
+    }
+    catch (error){
+        console.error('Failed to fetch answers:', error?.response?.data || error.message);
+        return null;
+    }
+}

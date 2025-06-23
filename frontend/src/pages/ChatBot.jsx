@@ -2,14 +2,28 @@ import { faPaperPlane, faRobot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import ChatMessage from "../components/ChatMessage";
+import { chatBot } from "../api";
+import { useScoreContext } from "../contexts/ScoreContext";
 
 function ChatBot() {
     const inputRef = useRef()
     const [chatHistory, setChatHistory] = useState([])
+    const [loading, setLoading] = useState(false)
+    const {score, subject, term} = useScoreContext()
 
-    const generateBotRes = () => {
-
-    }
+        async function getBotRes(question) {
+            setLoading(true);
+            try {
+                let data = await chatBot(question, score, chatHistory);
+                if (data) {
+                    setChatHistory((history) => [...history, {role: 'model', text: data}]);
+                }
+            } catch (error) {
+                console.error('Failed to fetch scores:', err);
+            } finally {
+                setLoading(false);
+            }
+        }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -19,13 +33,10 @@ function ChatBot() {
 
         setChatHistory((history) => [...history, {role: 'user', text: userMessage}])
         
-        setTimeout(() => {
-            setChatHistory((history) => [...history, {role: 'model', text: 'Thinking...'}])
-
-            generateBotRes([...chatHistory, {role: 'user', text:userMessage}])
-        }, 600);
-
+            getBotRes(userMessage)
     }
+
+    console.log(chatHistory)
 
     return (
         <div className="flex flex-col justify-center items-center mt-10">
@@ -38,13 +49,13 @@ function ChatBot() {
             </div>
             <p>Ask me anything related to your grades</p>
 
-            <div className=" flex flex-col bg-white w-[50vw] h-[60vh] rounded-xl p-5 overflow-auto gap-5 mt-5">
+            <div className=" flex flex-col bg-white w-[70vw] h-[60vh] rounded-xl p-5 overflow-auto gap-5 mt-5">
                 <div className="flex flex-row justify-baseline">
                     <FontAwesomeIcon
                         icon={faRobot}
                         className="text-black text-[1.2vw] self-end mr-2 bg-amber-100 rounded-[100%] px-2 py-2.5"
                     />
-                    <p className="p-4 bg-gray-200 max-w-[75%] rounded-t-xl rounded-br-xl rounded-bl-0 break-words whitespace-pre-line">
+                    <p className="text-[0.9vw] p-4 bg-gray-200 max-w-[75%] rounded-t-xl rounded-br-xl rounded-bl-0 break-words whitespace-pre-line">
                         Hey there how can I help
                     </p>
                 </div>
