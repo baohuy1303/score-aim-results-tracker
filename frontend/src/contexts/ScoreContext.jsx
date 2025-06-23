@@ -23,7 +23,7 @@ export function ScoreProvider({ userID, children }) {
           return ans.split(' ').reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
       }
      function getGPA(score, subject) {
-         if (score) {
+         if (score && !loading) {
             let currentSubject = score?.[subject];
             let total = 0;
             let count = 0;

@@ -74,7 +74,13 @@ function SideBar() {
                         />
                     </div>
 
-                    <div className=" flex items-center justify-center size-[3vw] rounded-full border-4 border-black bg-bgColor shadow-orange-800 shadow-xl/30 hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer">
+                    <div className={` flex items-center justify-center size-[3vw] rounded-full border-4 
+                    border-black bg-bgColor shadow-orange-800 shadow-xl/30 
+                    hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer
+                    ${location.pathname === '/chatbot' ? 'bg-greenSelect' : 'bg-bgColor'}`}
+                    onClick={() => {
+                            navigate('/chatbot');
+                        }}>
                         <FontAwesomeIcon
                             icon={faRobot}
                             className="text-black text-2xl"

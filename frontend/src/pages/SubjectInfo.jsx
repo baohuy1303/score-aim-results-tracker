@@ -8,7 +8,7 @@ function SubjectInfo() {
   const { score, loading, unCamelCase, getGPA } = useScoreContext();
   const subject = useParams().subjectName
   const navigate = useNavigate()
-
+  
   const hs1 = score[subject]?.hs1 || [];
   const hs2 = score[subject]?.hs2 || [];
   const hs3 = score[subject]?.hs3 || [];

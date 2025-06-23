@@ -144,7 +144,7 @@ if(index == 'newScore'){
                 <div className='flex flex-col justify-center items-center'>
                 <h1 className='text-[2.5vw] font-bold mb-0 leading-18 px-4 py-2 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 bg-amber-100 mt-[10vh]'>{score[subject][multiplier][index]}</h1>
                     <h2 className='text-[2vw] font-bold mt-5'>EDIT {unCamelCase(subject).toUpperCase()} {`X${multiplier.replace('hs','')}`} {[`SCORE NUMBER ${Number(index) + 1}`]}</h2>
-                    <form onSubmit={EditScore} className='my-5'>
+                    <form onSubmit={EditScore} className='mt-7'>
                         <input
                             value={newScore}
                             type="text"
@@ -162,9 +162,9 @@ if(index == 'newScore'){
                         </button>
                         <p className='font-extralight mt-5 italic'>*number rounded to first digit after dot (.) *</p>
                     </form>
-                    <h2 className='text-[1.5vw] font-bold mb-5'>OR</h2>
+                    <h2 className='text-[1.5vw] font-bold mt-3 mb-2'>OR</h2>
                     <div className='flex gap-5'>
-<h1 className='text-[1.8vw] font-medium'>Delete this score</h1>
+                    <h1 className='text-[1.8vw] font-medium'>Delete this score</h1>
                     <button className="text-white hover:text-red-600 cursor-pointer bg-red py-2 px-4 rounded-md shadow-md/10 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out" onClick={DeleteScore}><FontAwesomeIcon className='text-xl' icon={faTrashCan} /></button>
                     </div>
                     
