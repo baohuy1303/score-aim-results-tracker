@@ -101,6 +101,7 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').p
     }
 })
 
+//Delete this score
 scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/del').put( async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject, multiplier, index} = req.params
