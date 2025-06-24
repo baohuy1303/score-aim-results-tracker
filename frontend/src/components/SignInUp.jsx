@@ -1,28 +1,50 @@
 import { useState } from "react";
+import { createUser } from "../api";
 
 function SignInUp(){
 
     const [signUp, setSignUp] = useState(true)
+    const [user, setUser] = useState({
+        email: '',
+        passowrd: ''
+    })
+
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+
+        try{
+            let res = await createUser(user)
+            if(res.status !== 200)
+                alert('Cannot create user')
+        }catch(error){
+            console.error('Failed to create user:', error);
+        }
+
+    }
 
     return (
         <>
         {signUp ? <>
             <h1>Create Account</h1>
             
-            <form action="#">
-                <input type="text" placeholder="Email" />
-                <input type="text" placeholder="Password" />
-                <button>Sign Up</button>
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleChange} type="text" placeholder="Email" name="email" required/>
+                <input onChange={handleChange} type="text" placeholder="Password" name="password" required/>
+                <button type="submit">Sign Up</button>
             </form>
         </>
         : 
         <>
             <h1>Log In</h1>
             
-            <form action="#">
-                <input type="text" placeholder="Email" />
-                <input type="text" placeholder="Password" />
-                <button>Sign In</button>
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleChange} type="text" placeholder="Email" name="email" required/>
+                <input onChange={handleChange} type="text" placeholder="Password" name="password" required/>
+                <button type="submit">Sign In</button>
             </form>
         </>}
         
