@@ -1,7 +1,12 @@
+import SignInUp from "../components/SignInUp";
+
 function Landing(){
-    return <div>
-        <p>landing</p>
-    </div>
+    return (
+        <div>
+            <h1>Landing Page</h1>
+            <SignInUp/>
+        </div>
+    );
 }
 
 export default Landing
