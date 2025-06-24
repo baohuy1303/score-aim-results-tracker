@@ -10,7 +10,7 @@ const PORT = 3000
 app.use(cors())
 app.use(express.json())
 app.use('/scores', scores)
-app.use('/users', user)
+app.use(user)
 
 app.listen(PORT, ()=>{
     connect.connectToServer()

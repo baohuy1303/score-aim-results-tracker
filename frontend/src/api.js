@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const URL = 'http://localhost:3000';
 
+
+//SCORES
+
 export async function getScores(userID) {
     try{
     const res = await axios.get(`${URL}/scores/${userID}`);
@@ -84,6 +87,48 @@ export async function chatBot(question, score, history) {
     }
     catch (error){
         console.error('Failed to fetch answers:', error?.response?.data || error.message);
+        return null;
+    }
+}
+
+
+//USERS
+
+export async function getUser(id) {
+    try {
+        const res = await axios.get(`${URL}/users/${id}`);
+        return res.data;
+    } catch (error) {
+        console.error(
+            'Failed to fetch user:',
+            error?.response?.data || error.message
+        );
+        return null;
+    }
+}
+
+export async function createUser(newUser) {
+    try {
+        const res = await axios.post(`${URL}/users`, newUser);
+        return res.data;
+    } catch (error) {
+        console.error(
+            'Failed to create user:',
+            error?.response?.data || error.message
+        );
+        return null;
+    }
+}
+
+export async function updateUser(id, updatedUser) {
+    try {
+        const res = await axios.put(`${URL}/users/${id}`, updatedUser);
+        return res;
+    } catch (error) {
+        console.error(
+            'Failed to update user:',
+            error?.response?.data || error.message
+        );
         return null;
     }
 }
