@@ -32,8 +32,8 @@ function SignInUp(){
             <h1>Create Account</h1>
             
             <form onSubmit={handleSubmit}>
-                <input onChange={handleChange} type="text" placeholder="Email" name="email" required/>
-                <input onChange={handleChange} type="text" placeholder="Password" name="password" required/>
+                <input onChange={handleChange} type="text" placeholder="Email" name="email" required/> {/*implement max length*/}
+                <input onChange={handleChange} type="password"  placeholder="Password" name="password" required/>
                 <button type="submit">Sign Up</button>
             </form>
         </>

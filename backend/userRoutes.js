@@ -85,4 +85,27 @@ userRoutes.route('/users/:id').put( async (req, res) =>{
         res.status(500).json({ message: 'Internal server error' });
     }
 })
+//LOGIN ROUTE
+userRoutes.route('/users/login').post( async (req, res) =>{
+    let db = database.getDb();
+
+    const user = await db.collection('users').findOne({ email: req.body.email });
+
+    if (user) {
+        try {
+            let confirmation = await bcrypt.compare(req.body.password, user.password);
+            if (!confirmation) {
+                res.json({success: false, message: 'Incorrect password'})
+            }else{
+                res.json({success: true, user});
+            }
+        } catch (err) {
+            console.error('Error logging in user:', err);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    } else {
+        res.json({ success: false, message: 'User not found' });
+    }
+
+})
 module.exports = userRoutes
