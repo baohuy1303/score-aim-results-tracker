@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUser } from "../api";
+import { createUser, logIn } from "../api";
 
 function SignInUp(){
 
@@ -13,13 +13,27 @@ function SignInUp(){
         setUser({...user, [e.target.name]: e.target.value})
     }
 
-    async function handleSubmit(e) {
+    async function handleSignUp(e) {
         e.preventDefault()
 
         try{
             let res = await createUser(user)
-            if(res.status !== 200)
+            if(res.status !== 200){
                 alert('Cannot create user')
+            }
+
+        }catch(error){
+            console.error('Failed to create user:', error);
+        }
+    }
+
+
+    async function handleSignIn(e) {
+        e.preventDefault()
+
+        try{
+            let res = await logIn(user)
+            console.log(res)
         }catch(error){
             console.error('Failed to create user:', error);
         }
@@ -31,7 +45,7 @@ function SignInUp(){
         {signUp ? <>
             <h1>Create Account</h1>
             
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignUp}>
                 <input onChange={handleChange} type="text" placeholder="Email" name="email" required/> {/*implement max length*/}
                 <input onChange={handleChange} type="password"  placeholder="Password" name="password" required/>
                 <button type="submit">Sign Up</button>
@@ -41,9 +55,9 @@ function SignInUp(){
         <>
             <h1>Log In</h1>
             
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignIn}>
                 <input onChange={handleChange} type="text" placeholder="Email" name="email" required/>
-                <input onChange={handleChange} type="text" placeholder="Password" name="password" required/>
+                <input onChange={handleChange} type="password" placeholder="Password" name="password" required/>
                 <button type="submit">Sign In</button>
             </form>
         </>}

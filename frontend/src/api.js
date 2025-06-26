@@ -132,3 +132,16 @@ export async function updateUser(id, updatedUser) {
         return null;
     }
 }
+
+export async function logIn(user) {
+    try {
+        const res = await axios.post(`${URL}/users/login`, user);
+        return res.data;
+    } catch (error) {
+        console.error(
+            'Failed to fetch user:',
+            error?.response?.data || error.message
+        );
+        return null;
+    }
+}
