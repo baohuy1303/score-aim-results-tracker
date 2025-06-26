@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createUser, logIn } from "../api";
+import { useNavigate } from 'react-router-dom';
 
 function SignInUp(){
 
@@ -8,6 +9,9 @@ function SignInUp(){
         email: '',
         passowrd: ''
     })
+
+    const navigate = useNavigate()
+
 
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value})
@@ -21,7 +25,7 @@ function SignInUp(){
             if(res.status !== 200){
                 alert('Cannot create user')
             }
-
+            console.log(res)
         }catch(error){
             console.error('Failed to create user:', error);
         }
@@ -34,6 +38,9 @@ function SignInUp(){
         try{
             let res = await logIn(user)
             console.log(res)
+            if(res.data.success === true){
+                navigate('/home')
+            }
         }catch(error){
             console.error('Failed to create user:', error);
         }

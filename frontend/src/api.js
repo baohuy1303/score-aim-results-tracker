@@ -97,7 +97,7 @@ export async function chatBot(question, score, history) {
 export async function getUser(id) {
     try {
         const res = await axios.get(`${URL}/users/${id}`);
-        return res.data;
+        return res;
     } catch (error) {
         console.error(
             'Failed to fetch user:',
@@ -110,7 +110,7 @@ export async function getUser(id) {
 export async function createUser(newUser) {
     try {
         const res = await axios.post(`${URL}/users`, newUser);
-        return res.data;
+        return res;
     } catch (error) {
         console.error(
             'Failed to create user:',
@@ -136,7 +136,7 @@ export async function updateUser(id, updatedUser) {
 export async function logIn(user) {
     try {
         const res = await axios.post(`${URL}/users/login`, user);
-        return res.data;
+        return res;
     } catch (error) {
         console.error(
             'Failed to fetch user:',

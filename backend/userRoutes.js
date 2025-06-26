@@ -35,7 +35,7 @@ userRoutes.route('/users/:id').get( async (req, res) =>{
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-//Create user
+//SignUp user
 userRoutes.route('/users').post( async (req, res) =>{
     let db = database.getDb();
 
@@ -54,7 +54,8 @@ userRoutes.route('/users').post( async (req, res) =>{
             if (!result) {
                 return res.status(404).json({ message: 'Users not created' });
             }
-            res.json(result);
+            return res.status(200).json(result)
+
         } catch (err) {
             console.error('Error creating user:', err);
             res.status(500).json({ message: 'Internal server error' });
@@ -95,16 +96,16 @@ userRoutes.route('/users/login').post( async (req, res) =>{
         try {
             let confirmation = await bcrypt.compare(req.body.password, user.password);
             if (!confirmation) {
-                res.json({success: false, message: 'Incorrect password'})
+                return res.json({success: false, message: 'Incorrect password'})
             }else{
-                res.json({success: true, user});
+                return res.json({success: true, user});
             }
         } catch (err) {
             console.error('Error logging in user:', err);
-            res.status(500).json({ message: 'Internal server error' });
+            return res.status(500).json({ message: 'Internal server error' });
         }
     } else {
-        res.json({ success: false, message: 'User not found' });
+        return res.json({ success: false, message: 'User not found' });
     }
 
 })
