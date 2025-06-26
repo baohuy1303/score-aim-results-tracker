@@ -40,6 +40,9 @@ function SignInUp(){
             console.log(res)
             if(res.data.success === true){
                 navigate('/home')
+                sessionStorage.setItem("User", res.data.token)
+            }else{
+                alert('Login failed')
             }
         }catch(error){
             console.error('Failed to create user:', error);
