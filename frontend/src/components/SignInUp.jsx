@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createUser, logIn } from "../api";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function SignInUp(){
 
@@ -39,8 +40,9 @@ function SignInUp(){
             let res = await logIn(user)
             console.log(res)
             if(res.data.success === true){
-                navigate('/home')
                 sessionStorage.setItem("User", res.data.token)
+                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+                navigate('/home')
             }else{
                 alert('Login failed')
             }

@@ -3,13 +3,31 @@ const express = require('express');
 const ObjectID = require('mongodb').ObjectId
 require('dotenv').config({path: "./.env"});
 const {GoogleGenAI} = require("@google/genai");
+const jwt = require('jsonwebtoken')
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 let scoreRoutes = express.Router()
 
+function verifyToken(req, res, next){
+    const authHeaders = req.headers['authorization']
+    const token = authHeaders && authHeaders.split(' ')[1]
+    if(!token){
+        return res.status(401).json({message: 'Authentication token is missing'})
+    }
+
+    jwt.verify(token, process.env.SECRETKEY, (error, user) => {
+        if (error){
+            return res.status(403).json({message: 'Invalid token'})
+        }
+
+        req.user = user
+        next()
+    })
+
+}
 
 //Get all scores of user
-scoreRoutes.route('/:userID').get( async (req, res) =>{
+scoreRoutes.route('/:userID').get(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const userID = req.params.userID
     try{
@@ -24,7 +42,7 @@ scoreRoutes.route('/:userID').get( async (req, res) =>{
     }
 })
 //Delete subject
-scoreRoutes.route('/:userID/:term/:subject/del').put( async (req, res) =>{
+scoreRoutes.route('/:userID/:term/:subject/del').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject} = req.params
 
@@ -40,7 +58,7 @@ scoreRoutes.route('/:userID/:term/:subject/del').put( async (req, res) =>{
     }
 })
 //Add subject
-scoreRoutes.route('/:userID/:term/:subject/post').put( async (req, res) =>{
+scoreRoutes.route('/:userID/:term/:subject/post').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject} = req.params
 
@@ -62,7 +80,7 @@ scoreRoutes.route('/:userID/:term/:subject/post').put( async (req, res) =>{
     }
 })
 //Add new score to this subject
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:newScore/post').put( async (req, res) =>{
+scoreRoutes.route('/:userID/:term/:subject/:multiplier/:newScore/post').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject, multiplier, newScore} = req.params
 
@@ -82,7 +100,7 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:newScore/post').put( asy
 })
 
 //Edit this score
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').put( async (req, res) =>{
+scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject, multiplier, index, newScore} = req.params
 
@@ -102,7 +120,7 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').p
 })
 
 //Delete this score
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/del').put( async (req, res) =>{
+scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/del').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
     const {userID, term, subject, multiplier, index} = req.params
 
@@ -160,7 +178,7 @@ function formatChatHistory(chatHistory) {
 }
 
 
-scoreRoutes.route('/chatbot').post(async (req, res) => {
+scoreRoutes.route('/chatbot').post(verifyToken, async (req, res) => {
   const { question, score, history } = req.body; 
     const grades = formatScoresForGemini(score)
     const chatHistory = formatChatHistory(history)
@@ -208,82 +226,4 @@ This is our previous chat history ${chatHistory}`,
 });
 
 
-/*
-scoreRoutes.route('/chatbot').post(async(req, res) => {
-    const question = req.body
-    try {
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: 'Who are you',
-            config: {
-                thinkingConfig: {
-                    thinkingBudget: 0, // Disables thinking
-                },
-                systemInstruction: "You are a study advisor, take a look at my grades and answer my question",
-            },
-        });
-        if(!response){
-            return res.status(404).json('Cant find res')
-        }
-        res.json(response.text)
-    } catch (error) {
-        console.error('Error getting response: ', error)
-        res.status(500).json({ message: 'Internal server error' });
-    }
-})
-*/
-/* 
-//Get specific subject score
-scoreRoutes.route('/scores/:userID/:term/:subject').get( async (req, res) =>{
-    let db = database.getDb()
-    const userID = req.params.userID
-    const subject = req.params.subject
-
-    try{
-        const result = await db.collection('scores').findOne({_id: new ObjectID(userID)},)
-        if(!result){
-            return res.status(404).json({ message: 'Score not found' });
-        }
-        res.json(result)
-    }catch (err){
-        console.error('Error fetching subject score:', err);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-})
-
-//Create Scores
-scoreRoutes.route('/scores').post( async (req, res) =>{
-    let db = database.getDb()
-    let mongoObject = {
-        math: req.body.math,
-        physics: req.body.physics,
-        english: req.body.english 
-    }
-    let data = await db.collection('scores').insertOne(mongoObject)
-
-    res.json(data)
-})
-
-//Update Scores
-scoreRoutes.route('/scores/:id').put( async (req, res) =>{
-    let db = database.getDb()
-    let mongoObject = {
-        $set: {
-            math: req.body.math,
-            physics: req.body.physics,
-            english: req.body.english 
-        }
-    }
-    let data = await db.collection('scores').updateOne({_id: new ObjectID( req.params.id)},mongoObject)
-
-    res.json(data)
-})
-
-//Delete scores
-scoreRoutes.route('/scores/:id').delete( async (req, res) =>{
-    let db = database.getDb()
-    let data = await db.collection('scores').deleteOne({_id: new ObjectID( req.params.id)})
-    res.json(data)
-})
- */
 module.exports = scoreRoutes

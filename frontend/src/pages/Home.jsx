@@ -56,7 +56,7 @@ function Home(){
                     </div>
 
                     <div className='flex flex-wrap justify-center gap-10 max-w-[80vw] mb-[10vh]'>
-                    {Object.entries(score).map(([subject]) => {
+                    {(!loading && score) && Object.entries(score).map(([subject]) => {
                         return <SubjectCard key={subject} subject={subject} homeCheck={true}/>
                     })}
                     </div>

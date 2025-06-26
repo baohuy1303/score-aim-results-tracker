@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getScores, createScore } from '../api.js';
+import axios from 'axios';
 
 const ScoreContext = createContext();
 
@@ -79,9 +80,13 @@ export function ScoreProvider({ userID, children }) {
      }, [term]);
 
     useEffect(() => {
+
+    const token = sessionStorage.getItem("User");
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
         async function getAllScores() {
             setLoading(true);
-
             try {
                 let data = await getScores(userID);
                 if (data) {
@@ -96,8 +101,10 @@ export function ScoreProvider({ userID, children }) {
                 setLoading(false); // Always stop loading
             }
         }
+        if(token){
+            getAllScores();
+        }
 
-        getAllScores();
 
     }, [userID, term, editSubject]);
     return (
