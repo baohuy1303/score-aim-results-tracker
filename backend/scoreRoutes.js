@@ -21,6 +21,7 @@ function verifyToken(req, res, next){
         }
 
         req.user = user
+        
         next()
     })
 

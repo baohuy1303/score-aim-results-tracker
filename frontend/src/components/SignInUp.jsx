@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createUser, logIn } from "../api";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useScoreContext } from '../contexts/ScoreContext.jsx';
 
 function SignInUp(){
 
+    const {setToken} = useScoreContext()    
     const [signUp, setSignUp] = useState(true)
     const [user, setUser] = useState({
         email: '',
@@ -42,6 +44,7 @@ function SignInUp(){
             if(res.data.success === true){
                 sessionStorage.setItem("User", res.data.token)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+                setToken(res.data.token)
                 navigate('/home')
             }else{
                 alert('Login failed')

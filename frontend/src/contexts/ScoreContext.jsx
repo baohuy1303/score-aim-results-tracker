@@ -11,6 +11,7 @@ export function ScoreProvider({ userID, children }) {
     const [term, setTerm] = useState(storedTerm)
     const [editSubject, setEdit] = useState(false)
     const userid = userID
+    let [token, setToken] = useState(null)
 
     function unCamelCase(text) {
         const result = text.replace(/([A-Z])/g, ' $1');
@@ -80,11 +81,9 @@ export function ScoreProvider({ userID, children }) {
      }, [term]);
 
     useEffect(() => {
-
-    const token = sessionStorage.getItem("User");
-    if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
+        setToken(sessionStorage.getItem("User"))
+        if(token){
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`        
         async function getAllScores() {
             setLoading(true);
             try {
@@ -101,14 +100,11 @@ export function ScoreProvider({ userID, children }) {
                 setLoading(false); // Always stop loading
             }
         }
-        if(token){
             getAllScores();
         }
-
-
-    }, [userID, term, editSubject]);
+    }, [token, userID, term, editSubject]);
     return (
-        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase}}>
+        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>
             {children}
         </ScoreContext.Provider>
     );

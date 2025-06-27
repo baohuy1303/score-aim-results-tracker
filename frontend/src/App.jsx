@@ -10,19 +10,17 @@ import SubjectInfo from './pages/SubjectInfo.jsx'
 import AddScoreLog from './pages/AddScoreLog.jsx'
 import Goals from './pages/Goals.jsx'
 import ChatBot from './pages/ChatBot.jsx'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 function App() {
 
-/*
------PAGES-----
-Landing Page (Login)
-Homepage:
-  -if has score: display all the scores
-  -else: page where users add subjects and scores
-Individual scores:
-  Display all 15min test, midterm, final term, average gpa
-  Scores needed button: see what score is needed for a gpa
-*/
+   useEffect(() => {
+        let token = sessionStorage.getItem("User")
+        if(token){
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
+    }, [])
 
   const userId = "68492a2adf9ad6d4a6313e70";
   const term = "";
