@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getScores, createScore } from '../api.js';
-import axios from 'axios';
+import { getScores, createScore, AssignAxiosAuthHeader } from '../api.js';
+/* import axios from 'axios'; */
 
 const ScoreContext = createContext();
 
@@ -81,9 +81,10 @@ export function ScoreProvider({ userID, children }) {
      }, [term]);
 
     useEffect(() => {
-        setToken(sessionStorage.getItem("User"))
-        if(token){
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`        
+    setToken(sessionStorage.getItem("User"))
+
+  if (token) {
+    AssignAxiosAuthHeader(token);
         async function getAllScores() {
             setLoading(true);
             try {
@@ -101,7 +102,7 @@ export function ScoreProvider({ userID, children }) {
             }
         }
             getAllScores();
-        }
+}
     }, [token, userID, term, editSubject]);
     return (
         <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>

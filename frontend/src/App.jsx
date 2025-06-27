@@ -10,17 +10,9 @@ import SubjectInfo from './pages/SubjectInfo.jsx'
 import AddScoreLog from './pages/AddScoreLog.jsx'
 import Goals from './pages/Goals.jsx'
 import ChatBot from './pages/ChatBot.jsx'
-import axios from 'axios'
-import { useEffect } from 'react'
 
 function App() {
 
-   useEffect(() => {
-        let token = sessionStorage.getItem("User")
-        if(token){
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        }
-    }, [])
 
   const userId = "68492a2adf9ad6d4a6313e70";
   const term = "";

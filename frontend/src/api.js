@@ -5,6 +5,10 @@ const URL = 'http://localhost:3000';
 
 //SCORES
 
+export async function AssignAxiosAuthHeader(token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
+
 export async function getScores(userID) {
     try{
     const res = await axios.get(`${URL}/scores/${userID}`);

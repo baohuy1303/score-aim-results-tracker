@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { createUser, logIn } from "../api";
+import { AssignAxiosAuthHeader, createUser, logIn } from "../api";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+/* import axios from "axios"; */
 import { useScoreContext } from '../contexts/ScoreContext.jsx';
 
 function SignInUp(){
@@ -43,7 +43,7 @@ function SignInUp(){
             console.log(res)
             if(res.data.success === true){
                 sessionStorage.setItem("User", res.data.token)
-                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+                AssignAxiosAuthHeader(res.data.token)
                 setToken(res.data.token)
                 navigate('/home')
             }else{
