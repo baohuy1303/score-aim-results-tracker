@@ -57,8 +57,8 @@ userRoutes.route('/users').post( async (req, res) =>{
             }
             let mongoObject2 = {
                 userDbId: result.insertedId,
-                termOne: [],
-                termTwo: [],
+                termOne: {},
+                termTwo: {},
             };
             const result2 = await db.collection('scores').insertOne(mongoObject2);
             return res.status(200).json(result + result2);

@@ -25,9 +25,9 @@ export async function createScore(newScore) {
     return res
 }
 
-export async function addSubject(userID, term, subject) {
+export async function addSubject(term, subject) {
     try{
-        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/post`);
+        const res = await axios.put(`${URL}/scores/${term}/${subject}/post`);
         return res
     }
     catch (error){
@@ -36,9 +36,9 @@ export async function addSubject(userID, term, subject) {
     }
 }
 
-export async function deleteSubject(userID, term, subject) {
+export async function deleteSubject(term, subject) {
     try{
-        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/del`);
+        const res = await axios.put(`${URL}/scores/${term}/${subject}/del`);
         return res
     }
     catch (error){
@@ -47,9 +47,9 @@ export async function deleteSubject(userID, term, subject) {
     }
 }
 
-export async function addScore(userID, term, subject, multiplier, newScore) {
+export async function addScore(term, subject, multiplier, newScore) {
     try{
-        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${newScore}/post`);
+        const res = await axios.put(`${URL}/scores/${term}/${subject}/${multiplier}/${newScore}/post`);
         return res
     }
     catch (error){
@@ -57,9 +57,9 @@ export async function addScore(userID, term, subject, multiplier, newScore) {
         return null;
     }
 }
-export async function editScore(userID, term, subject, multiplier, index, newScore) {
+export async function editScore( term, subject, multiplier, index, newScore) {
     try{
-        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${index}/${newScore}/edit`);
+        const res = await axios.put(`${URL}/scores/${term}/${subject}/${multiplier}/${index}/${newScore}/edit`);
         return res
     }
     catch (error){
@@ -68,9 +68,9 @@ export async function editScore(userID, term, subject, multiplier, index, newSco
     }
 }
 
-export async function deleteScore(userID, term, subject, multiplier, index) {
+export async function deleteScore(term, subject, multiplier, index) {
     try{
-        const res = await axios.put(`${URL}/scores/${userID}/${term}/${subject}/${multiplier}/${index}/del`);
+        const res = await axios.put(`${URL}/scores/${term}/${subject}/${multiplier}/${index}/del`);
         return res
     }
     catch (error){

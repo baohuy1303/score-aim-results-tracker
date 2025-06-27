@@ -7,7 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function AddSubjects(){
-    const {score, loading, term, setTerm, userid, setEdit, camelCase} = useScoreContext()
+    const {score, loading, term, setTerm, setEdit, camelCase} = useScoreContext()
     const [newSubject, setNewSubject] = useState('')
 
     const handleChange = (e) => {
@@ -24,7 +24,6 @@ function AddSubjects(){
                   return alert('Already Exists');
               } else {
                   const res = await addSubject(
-                      userid,
                       term,
                       camelCase(newSubject)
                   );

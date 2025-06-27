@@ -13,12 +13,10 @@ import ChatBot from './pages/ChatBot.jsx'
 
 function App() {
 
-
-  const userId = "68492a2adf9ad6d4a6313e70";
   const term = "";
 
   return (
-    <ScoreProvider userID={userId} term={term}>
+    <ScoreProvider term={term}>
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route element={<Layout />}>

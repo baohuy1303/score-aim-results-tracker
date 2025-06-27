@@ -46,12 +46,13 @@ scoreRoutes.route('/getScores').get(verifyToken, async (req, res) =>{
     }
 })
 //Delete subject
-scoreRoutes.route('/:userID/:term/:subject/del').put(verifyToken, async (req, res) =>{
+scoreRoutes.route('/:term/:subject/del').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const {userID, term, subject} = req.params
+    const {term, subject} = req.params
+    const userID = req.user._id
 
     try{
-        const result = await db.collection('scores').updateOne({_id: new ObjectID(userID)}, { $unset: { [`${term}.${subject}`]: "" }})
+        const result = await db.collection('scores').updateOne({ userDbId: new ObjectID(userID) }, { $unset: { [`${term}.${subject}`]: "" }})
         if (result.matchedCount === 0) {
             return res.status(404).json({ message: 'Score not found' });
         } 
@@ -62,13 +63,14 @@ scoreRoutes.route('/:userID/:term/:subject/del').put(verifyToken, async (req, re
     }
 })
 //Add subject
-scoreRoutes.route('/:userID/:term/:subject/post').put(verifyToken, async (req, res) =>{
+scoreRoutes.route('/:term/:subject/post').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const {userID, term, subject} = req.params
+    const { term, subject} = req.params
+    const userID = req.user._id
 
     try{
         const result = await db.collection('scores').updateOne(
-            {_id: new ObjectID(userID)}, 
+            {userDbId: new ObjectID(userID)}, 
             { $set: { [`${term}.${subject}`]: {
                 "hs1" : [],
                 "hs2": [],
@@ -84,13 +86,14 @@ scoreRoutes.route('/:userID/:term/:subject/post').put(verifyToken, async (req, r
     }
 })
 //Add new score to this subject
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:newScore/post').put(verifyToken, async (req, res) =>{
+scoreRoutes.route('/:term/:subject/:multiplier/:newScore/post').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const {userID, term, subject, multiplier, newScore} = req.params
+    const {term, subject, multiplier, newScore} = req.params
+    const userID = req.user._id
 
     try{
         const result = await db.collection('scores').updateOne(
-            {_id: new ObjectID(userID)}, 
+            {userDbId: new ObjectID(userID)}, 
             {$push: {[`${term}.${subject}.${multiplier}`] : Number(newScore)}})
 
         if (result.matchedCount === 0) {
@@ -104,13 +107,14 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:newScore/post').put(veri
 })
 
 //Edit this score
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').put(verifyToken, async (req, res) =>{
+scoreRoutes.route('/:term/:subject/:multiplier/:index/:newScore/edit').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const {userID, term, subject, multiplier, index, newScore} = req.params
+    const {term, subject, multiplier, index, newScore} = req.params
+    const userID = req.user._id
 
     try{
         const result = await db.collection('scores').updateOne(
-            {_id: new ObjectID(userID)}, 
+            {userDbId: new ObjectID(userID)}, 
             {$set: {[`${term}.${subject}.${multiplier}.${index}`] : Number(newScore)}})
             
         if (result.matchedCount === 0) {
@@ -124,17 +128,18 @@ scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/:newScore/edit').p
 })
 
 //Delete this score
-scoreRoutes.route('/:userID/:term/:subject/:multiplier/:index/del').put(verifyToken, async (req, res) =>{
+scoreRoutes.route('/:term/:subject/:multiplier/:index/del').put(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const {userID, term, subject, multiplier, index} = req.params
+    const {term, subject, multiplier, index} = req.params
+    const userID = req.user._id
 
     try{
         await db.collection('scores').updateOne(
-            {_id: new ObjectID(userID)}, 
+            {userDbId: new ObjectID(userID)}, 
             {$unset: {[`${term}.${subject}.${multiplier}.${index}`] : 1}})
 
         const result = await db.collection('scores').updateOne(
-            {_id: new ObjectID(userID)}, 
+            {userDbId: new ObjectID(userID)}, 
             {$pull: {[`${term}.${subject}.${multiplier}`] : null}})
             
         if (result.matchedCount === 0) {

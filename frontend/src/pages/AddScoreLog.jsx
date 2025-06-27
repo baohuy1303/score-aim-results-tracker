@@ -6,7 +6,7 @@ import { faCheck, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function AddScoreLog(){
-    const { userid, term,score, loading, unCamelCase, setEdit } = useScoreContext();
+    const { term,score, loading, unCamelCase, setEdit } = useScoreContext();
     const {subject, multiplier, index} = useParams()
     const [newScore, setNewScore] = useState('')
     const navigate = useNavigate()
@@ -16,7 +16,6 @@ function AddScoreLog(){
               try {
                   setEdit(true);
                   const res = await addScore(
-                      userid,
                       term,
                       subject,
                       multiplier,
@@ -41,7 +40,6 @@ function AddScoreLog(){
               try {
                   setEdit(true);
                   const res = await editScore(
-                      userid,
                       term,
                       subject,
                       multiplier,
@@ -66,7 +64,6 @@ function AddScoreLog(){
               try {
                   setEdit(true);
                   const res = await deleteScore(
-                      userid,
                       term,
                       subject,
                       multiplier,

@@ -7,12 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     function SubjectCard({ subject, homeCheck }) {
         const navigate = useNavigate();
 
-        const { score, term, getGPA , userid, setEdit, unCamelCase} = useScoreContext();
+        const { score, term, getGPA, setEdit, unCamelCase} = useScoreContext();
 
         const handleClick = async () =>{
             setEdit(true)
             try{
-                const res = await deleteSubject(userid, term, subject)
+                const res = await deleteSubject(term, subject)
                 if(res){
                     console.log('Deleted successfully')
                 }else{
