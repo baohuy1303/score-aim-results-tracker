@@ -27,7 +27,7 @@ userRoutes.route('/users/:id').get( async (req, res) =>{
     let db = database.getDb()
     const id = req.params.id
     try{
-        const result = await db.collection('users').findOne({_id: new ObjectID(userID)})
+        const result = await db.collection('users').findOne({_id: new ObjectID(id)})
         if(!result){
             return res.status(404).json({ message: 'User not found' });
         }
@@ -49,14 +49,19 @@ userRoutes.route('/users').post( async (req, res) =>{
         let mongoObject = {
             email: req.body.email,
             password: hash,
-            scores: {},
         };
         try {
             const result = await db.collection('users').insertOne(mongoObject);
             if (!result) {
                 return res.status(404).json({ message: 'Users not created' });
             }
-            return res.status(200).json(result)
+            let mongoObject2 = {
+                userDbId: result.insertedId,
+                termOne: [],
+                termTwo: [],
+            };
+            const result2 = await db.collection('scores').insertOne(mongoObject2);
+            return res.status(200).json(result + result2);
 
         } catch (err) {
             console.error('Error creating user:', err);
@@ -73,8 +78,7 @@ userRoutes.route('/users/:id').put( async (req, res) =>{
     let mongoObject = {
         $set: {
             email: req.body.email,
-            password: req.body.password,
-            scores: req.body.scores
+            password: req.body.password
         }
     }
     try{
@@ -100,7 +104,7 @@ userRoutes.route('/users/login').post( async (req, res) =>{
             if (!confirmation) {
                 return res.json({success: false, message: 'Incorrect password'})
             }else{
-                const token = jwt.sign(user, process.env.SECRETKEY, {expiresIn: '1h'})
+                const token = jwt.sign({user: { _id: user._id, email: user.email }} , process.env.SECRETKEY, {expiresIn: '1h'})
                 return res.json({success: true, token});
 
             }

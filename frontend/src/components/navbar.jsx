@@ -24,6 +24,12 @@ function Navbar(){
         }
     }
 
+    const handleLogOut = () => {
+        sessionStorage.removeItem('User')
+        navigate('/')
+    }
+
+
     return<div className="flex justify-center items-center gap-5">
 
         {!isHome &&
@@ -37,7 +43,7 @@ function Navbar(){
     <a href="https://github.com/baohuy1303/score-aim-results-tracker" target="_blank" className="nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out"><FontAwesomeIcon icon={faGithub} className="text-2xl"/></a>
     <Link className="nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out" to={'/home'}><FontAwesomeIcon icon={faHouse}/> Home </Link>
     <Link className="nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out" to={'/goals'}><FontAwesomeIcon icon={faBullseye}/> Goals </Link>
-    <Link className="nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out" to={'/add-subjects'}> <FontAwesomeIcon icon={faArrowRightFromBracket}/> Log Out</Link>
+    <button onClick={handleLogOut} className="nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out"> <FontAwesomeIcon icon={faArrowRightFromBracket}/> Log Out</button>
     </div>
        
 </div>

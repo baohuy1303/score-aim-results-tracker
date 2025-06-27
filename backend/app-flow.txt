@@ -1,4 +1,5 @@
 [JSON Structure]:
+    userDbId: ...
     termOne: [
         math: {
                 hs1: [],

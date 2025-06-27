@@ -9,9 +9,9 @@ export async function AssignAxiosAuthHeader(token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-export async function getScores(userID) {
+export async function getScores() {
     try{
-    const res = await axios.get(`${URL}/scores/${userID}`);
+    const res = await axios.get(`${URL}/scores/getScores`);
     return res.data
     } catch (error){
         console.error('Failed to fetch scores:', error?.response?.data || error.message);
@@ -114,7 +114,7 @@ export async function getUser(id) {
 export async function createUser(newUser) {
     try {
         const res = await axios.post(`${URL}/users`, newUser);
-        return res;
+        return res
     } catch (error) {
         console.error(
             'Failed to create user:',

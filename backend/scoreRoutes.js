@@ -15,24 +15,27 @@ function verifyToken(req, res, next){
         return res.status(401).json({message: 'Authentication token is missing'})
     }
 
-    jwt.verify(token, process.env.SECRETKEY, (error, user) => {
+    jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
         if (error){
             return res.status(403).json({message: 'Invalid token'})
         }
 
-        req.user = user
+        req.user = decoded.user
         
         next()
     })
 
 }
 
+// Create new score json
+
+
 //Get all scores of user
-scoreRoutes.route('/:userID').get(verifyToken, async (req, res) =>{
+scoreRoutes.route('/getScores').get(verifyToken, async (req, res) =>{
     let db = database.getDb()
-    const userID = req.params.userID
+    const userID = req.user._id
     try{
-        const result = await db.collection('scores').findOne({_id: new ObjectID(userID)})
+        const result = await db.collection('scores').findOne({ userDbId: new ObjectID(userID) })
         if(!result){
             return res.status(404).json({ message: 'Score not found' });
         }

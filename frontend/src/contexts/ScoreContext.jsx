@@ -4,13 +4,12 @@ import { getScores, createScore, AssignAxiosAuthHeader } from '../api.js';
 
 const ScoreContext = createContext();
 
-export function ScoreProvider({ userID, children }) {
+export function ScoreProvider({ children }) {
     const storedTerm = localStorage.getItem('selectedTerm') || "termOne";
     const [score, setScore] = useState({});
     const [loading, setLoading] = useState(true);
     const [term, setTerm] = useState(storedTerm)
     const [editSubject, setEdit] = useState(false)
-    const userid = userID
     let [token, setToken] = useState(null)
 
     function unCamelCase(text) {
@@ -88,7 +87,7 @@ export function ScoreProvider({ userID, children }) {
         async function getAllScores() {
             setLoading(true);
             try {
-                let data = await getScores(userID);
+                let data = await getScores();
                 if (data) {
                     setScore(data[term]);
                 } else {
@@ -103,9 +102,9 @@ export function ScoreProvider({ userID, children }) {
         }
             getAllScores();
 }
-    }, [token, userID, term, editSubject]);
+    }, [token, term, editSubject]);
     return (
-        <ScoreContext.Provider value={{ userid, score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>
+        <ScoreContext.Provider value={{score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>
             {children}
         </ScoreContext.Provider>
     );
