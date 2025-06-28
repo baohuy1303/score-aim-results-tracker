@@ -7,7 +7,7 @@ import { useScoreContext } from '../contexts/ScoreContext.jsx';
 function SignInUp(){
 
     const {setToken} = useScoreContext()    
-    const [signUp, setSignUp] = useState(true)
+    const [signUp, setSignUp] = useState(false)
     const [user, setUser] = useState({
         email: '',
         passowrd: ''
