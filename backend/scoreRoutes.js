@@ -154,31 +154,51 @@ scoreRoutes.route('/:term/:subject/:multiplier/:index/del').put(verifyToken, asy
 
 
 
-function formatScoresForGemini(subjects) {
+function formatScoresForGemini(data) {
   const weightMap = { hs1: 1, hs2: 2, hs3: 3 };
   const labelMap = { hs1: 'x1', hs2: 'x2', hs3: 'x3' };
-  let result = '';
 
-  for (const subject in subjects) {
-    let totalScore = 0;
-    let totalWeight = 0;
-    const sectionData = [];
+  function formatTerm(termData) {
+    let result = '';
+    for (const subjectName in termData) {
+      const subject = termData[subjectName];
+      let totalScore = 0;
+      let totalWeight = 0;
+      const sectionData = [];
 
-    for (const hs in subjects[subject]) {
-      const scores = subjects[subject][hs];
-      const weight = weightMap[hs];
-      const sum = scores.reduce((a, b) => a + b, 0);
-      totalScore += sum * weight;
-      totalWeight += scores.length * weight;
-      sectionData.push(`${labelMap[hs]}: [${scores.join(', ')}]`);
+      for (const hs in subject) {
+        const scores = subject[hs];
+        const weight = weightMap[hs];
+        const sum = scores.reduce((a, b) => a + b, 0);
+        totalScore += sum * weight;
+        totalWeight += scores.length * weight;
+        sectionData.push(`${labelMap[hs]}: [${scores.join(', ')}]`);
+      }
+
+      const average = totalWeight === 0 ? 0 : (totalScore / totalWeight).toFixed(2);
+      result += `${subjectName} -> ${sectionData.join(' | ')} | weighted average: ${average}\n`;
     }
-
-    const average = totalWeight === 0 ? 0 : (totalScore / totalWeight).toFixed(2);
-    result += `${subject} -> ${sectionData.join(' | ')} | weighted average: ${average}\n`;
+    return result;
   }
 
-  return result.trim();
+  let output = '';
+
+  if (data.termOne && typeof data.termOne === 'object') {
+    output += 'Term One:\n';
+    output += formatTerm(data.termOne);
+    output += '\n';
+  }
+
+  if (data.termTwo && typeof data.termTwo === 'object') {
+    output += 'Term Two:\n';
+    output += formatTerm(data.termTwo);
+  }
+
+  return output.trim() || 'No subject data found.';
 }
+
+
+
 
 function formatChatHistory(chatHistory) {
   return chatHistory.map(
@@ -188,7 +208,7 @@ function formatChatHistory(chatHistory) {
 
 
 scoreRoutes.route('/chatbot').post(verifyToken, async (req, res) => {
-  const { question, score, history } = req.body; 
+    const { question, score, history } = req.body; 
     const grades = formatScoresForGemini(score)
     const chatHistory = formatChatHistory(history)
 
@@ -214,7 +234,7 @@ scoreRoutes.route('/chatbot').post(verifyToken, async (req, res) => {
           thinkingBudget: 0, // optional
         },
         systemInstruction: `You are a friendly study advisor chatbot, created by Huy B. Huynh to help students track scores and ask related questions. Keep your response casual, direct, and between 10-300 words. Headers, formulas, or formatting like bold or italic, just plain text and simple outline if possible. Never explain how GPA is calculated.
-Use these scores: ${grades}. It contains all the subjects the student studied in one term — where hs1, hs2, and hs3 represent exams scores weighted as x1 (×1), x2 (×2), and x3 (×3). Only refer to hs1, hs2, hs3 as x1, x2, and x3 in your answer. 
+Use these scores: ${grades}. It contains all the subjects the student studied in term 1 and term 2 — where hs1, hs2, and hs3 represent exams scores weighted as x1 (×1), x2 (×2), and x3 (×3). Only refer to hs1, hs2, hs3 as x1, x2, and x3 in your answer. 
 Give honest, actionable advice like you're chatting with a student. If asked how to improve grades, remember: x3 is hardest to change, then x2, then x1. The user can either fix 1–2 scores per section or add one more score to each. 
 Focus on realistic improvements (starting from x1 if possible) that give the most impact. If helpful, include hypotheticals like: “If you score a 9 in your x1 exam, your average could reach [estimated score].”
 This is our previous chat history ${chatHistory}`,

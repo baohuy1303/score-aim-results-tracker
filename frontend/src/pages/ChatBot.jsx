@@ -10,7 +10,7 @@ function ChatBot() {
     const chatRef = useRef()
     const [chatHistory, setChatHistory] = useState([])
     const [loading, setLoading] = useState(false)
-    const {score, subject, term} = useScoreContext()
+    const {allScores, subject, term} = useScoreContext()
 
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function ChatBot() {
             setLoading(true);
             setChatHistory((history) => [...history, {role: 'model', text: {data: 'Thinking...'}}]);
             try {
-                let data = await chatBot(question, score, chatHistory);
+                let data = await chatBot(question, allScores, chatHistory);
                 if (data) {
                     setChatHistory((history) => {
                         const prevChats = [...history]

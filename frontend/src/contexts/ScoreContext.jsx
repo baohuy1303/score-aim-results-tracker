@@ -11,6 +11,7 @@ export function ScoreProvider({ children }) {
     const [term, setTerm] = useState(storedTerm)
     const [editSubject, setEdit] = useState(false)
     let [token, setToken] = useState(null)
+    const [allScores, setAllScores] = useState({})
 
     function unCamelCase(text) {
         const result = text.replace(/([A-Z])/g, ' $1');
@@ -90,6 +91,7 @@ export function ScoreProvider({ children }) {
                 let data = await getScores();
                 if (data) {
                     setScore(data[term]);
+                    setAllScores(data);
                 } else {
                     setScore(null);
                 }
@@ -104,7 +106,7 @@ export function ScoreProvider({ children }) {
 }
     }, [token, term, editSubject]);
     return (
-        <ScoreContext.Provider value={{score, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>
+        <ScoreContext.Provider value={{score, allScores, loading, term, setTerm, getGPA, editSubject, setEdit, camelCase, unCamelCase, setToken}}>
             {children}
         </ScoreContext.Provider>
     );

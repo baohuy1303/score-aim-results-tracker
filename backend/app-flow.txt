@@ -1,6 +1,6 @@
 [JSON Structure]:
     userDbId: ...
-    termOne: [
+    termOne: {
         math: {
                 hs1: [],
                 hs2: [],
@@ -17,7 +17,7 @@
                 hs3: []
             },
         (other subjects with the same format as the 3 above...)
-        ],
+    },
     termTwo: [(same as term 1)]
 
 
