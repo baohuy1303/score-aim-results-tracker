@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import ChatMessage from "../components/ChatMessage";
 import { chatBot } from "../api";
 import { useScoreContext } from "../contexts/ScoreContext";
+import Navbar from "../components/navbar";
 
 function ChatBot() {
     const inputRef = useRef()
@@ -55,7 +56,7 @@ function ChatBot() {
 
     console.log(chatHistory)
 
-    return (
+    return (<>
         <div className="flex flex-col justify-center items-center mt-10">
             <div className="flex flex-row gap-5 items-center justify-center">
                 <FontAwesomeIcon
@@ -110,7 +111,7 @@ function ChatBot() {
                     </form>
                 </div>
         </div>
-    );
+        </>);
 }
 
 export default ChatBot;

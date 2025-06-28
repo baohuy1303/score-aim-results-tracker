@@ -18,6 +18,14 @@ function SideBar() {
         setTerm(e.target.value);
     };
 
+        const chatbotClick = (e) => {
+        if(location.pathname === '/chatbot'){
+            navigate(-1)
+        }else{
+            navigate('/chatbot')
+        }
+    };
+
     return (
         <>
             <div className="fixed left-0 top-1/2 transform -translate-y-1/2 w-[6vw] bg-orange text-white p-6 shadow-lg/30 shadow-orange-400 rounded-r-xl space-y-6 border-4 border-l-0 border-amber-50 hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out">
@@ -60,27 +68,25 @@ function SideBar() {
                         </div>
                     </label>
 
-                    <div
+{/*                     <div
                         className={` flex items-center justify-center size-[3vw] rounded-full border-4 
                         border-black shadow-orange-800 shadow-xl/30 hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer
                         ${location.pathname === '/add-subjects' ? 'bg-greenSelect' : 'bg-bgColor'}`}
                         onClick={() => {
-                            navigate('/add-subjects');
+                            navigate('/add-subjects')
                         }}
                     >
                         <FontAwesomeIcon
                             icon={faPen}
                             className="text-black text-2xl"
                         />
-                    </div>
+                    </div> */}
 
                     <div className={` flex items-center justify-center size-[3vw] rounded-full border-4 
                     border-black bg-bgColor shadow-orange-800 shadow-xl/30 
                     hover:bg-sidebar hover:border-sidebar hover:scale-110 transition duration-200 ease-in-out cursor-pointer
                     ${location.pathname === '/chatbot' ? 'bg-greenSelect' : 'bg-bgColor'}`}
-                    onClick={() => {
-                            navigate('/chatbot');
-                        }}>
+                    onClick={chatbotClick}>
                         <FontAwesomeIcon
                             icon={faRobot}
                             className="text-black text-2xl"
