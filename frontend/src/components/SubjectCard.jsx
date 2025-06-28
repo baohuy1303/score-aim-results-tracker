@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
         const navigate = useNavigate();
 
         const { score, term, getGPA, setEdit, unCamelCase} = useScoreContext();
+        let subjectName = subject
 
         const handleClick = async () =>{
             setEdit(true)
@@ -29,6 +30,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
             navigate(`/home/${subject}`)
         }
 
+        if(subjectName.includes('-')){
+            subjectName = subjectName.replace(/-/g, '.');
+            subjectName = subjectName.split('.').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('.');
+        }else{
+            subjectName = unCamelCase(subjectName);
+        }
+
         return (
             <>
                 {homeCheck ? (
@@ -37,7 +45,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                         className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw]
                     cursor-pointer shadow-lg/30 shadow-orange-400 border-4 border-amber-50  hover:bg-subject hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out"
                     >
-                        <p className="text-lg">{unCamelCase(subject)}:</p>
+                        <p className="text-lg">{subjectName}:</p>
                         <div>
                             <h1 className="text-2xl">
                                 {getGPA(score, subject)}
@@ -59,7 +67,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                         className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw] 
                     shadow-lg/30 shadow-orange-400 border-4 border-amber-50"
                     >
-                        <p className="text-lg"> {unCamelCase(subject)}</p>
+                        <p className="text-lg"> {subjectName}</p>
                         <button
                             className=" text-white hover:text-red-600 cursor-pointer bg-red py-2 px-4 rounded-md shadow-md/10 hover:bg-sidebar hover:shadow-lg/35 hover:scale-110 transition duration-200 ease-in-out"
                             onClick={handleClick}

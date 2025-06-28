@@ -10,11 +10,6 @@ function AddSubjects(){
     const {score, loading, term, setTerm, setEdit, camelCase} = useScoreContext()
     const [newSubject, setNewSubject] = useState('')
 
-    const handleChange = (e) => {
-          setTerm(e.target.value);
-      };
-
-      
 
       const NewSubjectAdd = async (e) => {
           e.preventDefault();
@@ -23,9 +18,13 @@ function AddSubjects(){
               if (camelCase(newSubject) in score) {
                   return alert('Already Exists');
               } else {
+                let subjectName = newSubject
+                    if(subjectName.includes('.')){
+                        subjectName = subjectName.replace(/\./g, '-');
+                    }
                   const res = await addSubject(
                       term,
-                      camelCase(newSubject)
+                      camelCase(subjectName)
                   );
                   if (res) {
                       console.log('added successfully');
