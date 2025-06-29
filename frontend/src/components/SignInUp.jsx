@@ -73,7 +73,7 @@ function SignInUp(){
             <form onSubmit={handleSignIn}>
                 <input onChange={handleChange} type="text" placeholder="Email" name="email" required/>
                 <input onChange={handleChange} type="password" placeholder="Password" name="password" required/>
-                <button type="submit">Sign In</button>
+                <button className='cursor-pointer' type="submit">Sign In</button>
             </form>
         </>}
         
