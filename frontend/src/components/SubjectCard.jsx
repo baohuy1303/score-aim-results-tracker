@@ -42,7 +42,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                 {homeCheck ? (
                     <div
                         onClick={openSubjectPage}
-                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw]
+                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-80 md:w-[30vw] lg:w-[20vw]
                     cursor-pointer shadow-lg/30 shadow-orange-400 border-4 border-amber-50  hover:bg-subject hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out"
                     >
                         <p className="text-lg">{subjectName}:</p>

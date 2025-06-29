@@ -66,14 +66,16 @@ function Home(){
 
                 <div className='flex flex-col justify-center items-center max-h-[100%] text-center'>
                     <div>
-                    <h1 className='text-[5vw] font-bold mb-0 leading-18 p-4 border-4 border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 bg-amber-100 mt-[10vh]'>{averageGPA()}</h1>
-                    <h1 className='text-[2vw] font-black mt-5 mb-5'>AVERAGE GPA</h1>
+                    <h1 className='text-5xl sm:text-6xl lg:text-[5vw] font-bold mb-0 leading-18 px-4 py-2 md:py-3 border-4 mt-[9vh]
+                    border-amber-50 rounded-lg shadow-lg/30 shadow-orange-400 bg-amber-100'>{averageGPA()}</h1>
+                    <h1 className='text-xl sm:text-2xl lg:text-[2vw] font-black mt-5 mb-5'>AVERAGE GPA</h1>
                     
                     </div>
                     {
                         isEmpty && (
-                        <div className=' text-white bg-red p-4 rounded-lg w-[45vw] shadow-lg/30 shadow-orange-400 border-4 border-amber-50'>
-                            <h1 className=' font-black text-[3vw]' >NO SUBJECTS ADDED </h1>
+                        <div className=' text-white bg-red p-4 rounded-lg w-50 
+                        shadow-lg/30 shadow-orange-400 border-4 border-amber-50'>
+                            <h1 className=' font-black text-xl' >NO SUBJECTS ADDED </h1>
                             <p className=' font-semibold text-[1.5vw] mt-2'><FontAwesomeIcon className='mx-4' icon={faArrowDown}/>Add Subjects To {term === 'termOne' ? 'Term One' : 'Term Two' } Now<FontAwesomeIcon className='mx-4' icon={faArrowDown}/></p>
                             <button className='text-[1.5vw] font-extrabold text-black mt-4 cursor-pointer bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg 
                             shadow-lg/30 shadow-red-950 hover:bg-sidebar hover:shadow-lg/35 
@@ -82,7 +84,7 @@ function Home(){
                         </div>
                         )
                     }
-                    <div className='flex flex-wrap justify-center gap-10 max-w-[80vw] mb-[10vh]'>
+                    <div className='flex flex-col md:flex-row md:flex-wrap justify-center items-center gap-10 max-w-[80vw] mb-[15vh] md:mb-[10vh]'>
                     {(!loading && score) && Object.entries(score).map(([subject]) => {
                         return <SubjectCard key={subject} subject={subject} homeCheck={true}/>
                     })}

@@ -71,4 +71,6 @@
     + [Calculate Button]
     ---> Score needed for GPA
 
-
+CSS BREAKPOINTS:
+default: sidebar bottom, subject card full width flex col
+md: sidebar left, subject card small flex row
