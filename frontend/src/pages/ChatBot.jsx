@@ -102,7 +102,7 @@ function ChatBot() {
                             value={input}
                             ref={inputRef}
                             type="text"
-                            placeholder="Message me"
+                            placeholder='▼ Premade questions below ▼'
                             required
                             className="w-[45vw] overflow-auto text-[0.9vw]
                         bg-white py-3 px-4 outline-amber-100 rounded-lg outline-1
