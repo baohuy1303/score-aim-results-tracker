@@ -39,7 +39,7 @@ function Navbar(){
         }
     
     
-    <div className="navbar w-[85%] sm:w-[70%] lg:w-[45%] lg:text-md mt-4 p-2 lg:p-4 text-sm sm:text-lg
+    <div className="navbar w-[85%] sm:w-[70%] lg:w-[45%] lg:text-md mt-4 p-2 lg:p-4 text-sm sm:text-md
     bg-amber-50  rounded-2xl shadow-xl/20 shadow-orange-400 transition duration-200 ease-in-out">
     <a href="https://github.com/baohuy1303/score-aim-results-tracker" target="_blank" className="p-2.5 nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out"><FontAwesomeIcon icon={faGithub} className="text-xl sm:text-2xl mt-0.5"/></a>
     <Link className="p-2.5 nav-item rounded-xl font-bold hover:bg-amber-100 hover:shadow-md/20 hover:scale-110 transition duration-200 ease-in-out" to={'/home'}><FontAwesomeIcon icon={faHouse} className="mx-1"/> Home </Link>

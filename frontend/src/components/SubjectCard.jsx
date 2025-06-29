@@ -64,8 +64,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                     </div>
                 ) : (
                     <div
-                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-[20vw] 
-                    shadow-lg/30 shadow-orange-400 border-4 border-amber-50"
+                        className="flex flex-row justify-between items-center font-bold bg-orange p-4 rounded-lg w-80 md:w-[30vw] lg:w-[20vw]
+                        shadow-lg/30 shadow-orange-400 border-4 border-amber-50"
                     >
                         <p className="text-lg"> {subjectName}</p>
                         <button

@@ -31,7 +31,7 @@ function SideBar() {
             <div className="fixed md:left-0 md:top-1/2 md:transform md:-translate-y-1/2
              w-full md:w-28 max-md:bottom-0 left-0
               bg-orange text-white p-3 lg:p-6 shadow-lg/30 shadow-orange-400 md:rounded-r-xl 
-             space-y-6 border-3 md:border-4 md:border-l-0 
+             space-y-6 border-3 border-l-0 border-r-0 border-b-0 md:border-4 md:border-l-0 
              border-amber-50 hover:scale-105 hover:shadow-xl/25 transition duration-100 ease-in-out">
                 <div className="flex flex-row md:flex-col justify-between md:justify-center items-center max-md:mx-6 gap-5 ">
                     <label className="cursor-pointer">
