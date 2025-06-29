@@ -73,11 +73,11 @@ function Home(){
                     </div>
                     {
                         isEmpty && (
-                        <div className=' text-white bg-red p-4 rounded-lg w-50 
+                        <div className=' text-white bg-red p-4 rounded-lg w-[70%] md:w-[50%] xl:w-[40%]
                         shadow-lg/30 shadow-orange-400 border-4 border-amber-50'>
-                            <h1 className=' font-black text-xl' >NO SUBJECTS ADDED </h1>
-                            <p className=' font-semibold text-[1.5vw] mt-2'><FontAwesomeIcon className='mx-4' icon={faArrowDown}/>Add Subjects To {term === 'termOne' ? 'Term One' : 'Term Two' } Now<FontAwesomeIcon className='mx-4' icon={faArrowDown}/></p>
-                            <button className='text-[1.5vw] font-extrabold text-black mt-4 cursor-pointer bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg 
+                            <h1 className=' font-black text-[4vw] md:text-3xl lg:text-4xl' >NO SUBJECTS ADDED </h1>
+                            <p className=' font-semibold text-[3vw] md:text-lg mt-2'><FontAwesomeIcon className='mx-1 md:mx-2.5' icon={faArrowDown}/>Add Subjects To {term === 'termOne' ? 'Term One' : 'Term Two' } Now<FontAwesomeIcon className='mx-1 md:mx-2.5' icon={faArrowDown}/></p>
+                            <button className='text-md font-extrabold text-black mt-4 cursor-pointer bg-orange py-4 px-5 border-amber-50 border-4 rounded-lg 
                             shadow-lg/30 shadow-red-950 hover:bg-sidebar hover:shadow-lg/35 
                             hover:scale-110 transition duration-200 ease-in-out'
                             onClick={() => navigate('/add-subjects')}><FontAwesomeIcon icon={faPen}/> Edit Subjects</button>
