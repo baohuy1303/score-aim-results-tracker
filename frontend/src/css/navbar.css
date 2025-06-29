@@ -2,10 +2,4 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 35%;
-}
-
-.nav-item{
-    padding: 0.6vw;
-    margin: 0.3vw;
 }
